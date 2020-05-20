@@ -1,0 +1,99 @@
+package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class InitDatabase {
+	/**
+	 * This Class will create the database and will create the tables and relationships 
+	 * to get started.
+	 */
+	static final String CONTROLLER = "com.mysql.jdbc.Driver";
+	
+	static final String URL_DATABASE  = "jdbc:mysql://localhost:3306/super_market_campestre?autoReconnect=true&useSSL=false";
+	static final String URL_INIT = "jdbc:mysql://localhost:3306/?autoReconnect=true&useSSL=false";
+	static final String USER = "root";
+	static final String PASSWORD = "root";
+	private static Connection connection;
+	public static void main(String[] args) {
+		createDatabase();
+		createAllTables();
+	}
+	
+	
+	public static String createDatabase(String nameDatabase) {
+		return "CREATE DATABASE "+nameDatabase;
+	}
+	public static String dropDataBase(String nameDatabase) {
+		return "DROP DATABASE "+nameDatabase;
+	}
+	
+	public static void createDatabase() {
+		Statement statement;
+		try {
+			Class.forName(CONTROLLER).newInstance();//Carga la clase CONTROLLER
+			connection = DriverManager.getConnection(URL_INIT, USER, PASSWORD);//Establece la conexión a la base de datos
+			System.out.println("Conexión a la base de datos establecida...  ");
+			statement = connection.createStatement();//Crea el Statement para la consulta
+			String nameDatabase = "super_market_campestre";
+			System.out.println("Creando base de datos...");
+			statement.executeUpdate(createDatabase(nameDatabase)+";");//Aquí va la consulta update -> DDL
+			System.out.println("Base de datos: "+nameDatabase+" creada");
+		}
+		catch(SQLException exception) {
+			if(exception.getMessage().contains("database exists")) {
+				System.out.println("La base de datos ya existe!");				
+			}else {
+				exception.printStackTrace();
+			}
+		}
+		catch (ClassNotFoundException e) {
+			System.out.println("error controlador");
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void createTable(String tableDetails) {
+		Statement statement;
+		try {
+			Class.forName(CONTROLLER).newInstance();//Carga la clase CONTROLLER
+			connection = DriverManager.getConnection(URL_DATABASE, USER, PASSWORD);//Establece la conexión a la base de datos
+			statement = connection.createStatement();//Crea el Statement para la consulta
+			System.out.println("Creando tabla...");
+			statement.executeUpdate(tableDetails);//Aquí va la consulta
+			System.out.println("Tabla: "+tableDetails+" creada");
+		}
+		catch(SQLException exception) {
+			if(exception.getMessage().contains("already exists")) {
+				System.out.println(exception.getMessage());
+			}else {
+				exception.printStackTrace();
+			}
+			
+		}
+		catch (ClassNotFoundException e) {
+			System.out.println("error controlador");
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void createAllTables() {
+		String createClientTable = "CREATE TABLE Client ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20), last_name VARCHAR(10), address VARCHAR(40), phone_number VARCHAR(10), PRIMARY KEY (code) );";
+		String createEmployeeTable = "CREATE TABLE Employee ( code VARCHAR(10) NOT NULL, name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL UNIQUE, address VARCHAR(50) NOT NULL, actual_job VARCHAR(40) NOT NULL, PRIMARY KEY (code));";
+		String createPhoneNumerTable = "CREATE TABLE Phone_number (number VARCHAR(10) NOT NULL, code_employee VARCHAR(10) NOT NULL, PRIMARY KEY(number, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code) );";
+		String createServiceTable = "CREATE TABLE Service ( code int NOT NULL AUTO_INCREMENT, details VARCHAR(40) NOT NULL, name VARCHAR(40) NOT NULL, PRIMARY KEY(code));";
+		String createServiceInvoice = "CREATE TABLE Invoice_service()";
+		createTable(createClientTable);
+		createTable(createEmployeeTable);
+		createTable(createPhoneNumerTable);
+		createTable(createServiceTable);
+	}
+}
