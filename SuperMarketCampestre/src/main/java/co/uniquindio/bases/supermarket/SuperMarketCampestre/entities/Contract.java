@@ -3,11 +3,11 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 public class Contract {
 
 	private int code;
-	private String salary;
+	private double salary;
 	private String startDate;
 	private String endDate;
 
-	public Contract(int code, String salary, String startDate, String endDate) {
+	public Contract(int code, double salary, String startDate, String endDate) {
 
 		this.code = code;
 		this.salary = salary;
@@ -27,11 +27,11 @@ public class Contract {
 		this.code = code;
 	}
 
-	public String getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(String salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 
@@ -57,7 +57,9 @@ public class Contract {
 		int result = 1;
 		result = prime * result + code;
 		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((salary == null) ? 0 : salary.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(salary);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
@@ -78,10 +80,7 @@ public class Contract {
 				return false;
 		} else if (!endDate.equals(other.endDate))
 			return false;
-		if (salary == null) {
-			if (other.salary != null)
-				return false;
-		} else if (!salary.equals(other.salary))
+		if (Double.doubleToLongBits(salary) != Double.doubleToLongBits(other.salary))
 			return false;
 		if (startDate == null) {
 			if (other.startDate != null)
