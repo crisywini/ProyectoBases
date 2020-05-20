@@ -7,15 +7,13 @@ public class Worker {
 	private String lastName;
 	private String email;
 	private String address;
-	private String actualJob;
 
-	public Worker(int code, String name, String lastName, String email, String address, String actualJob) {
+	public Worker(int code, String name, String lastName, String email, String address) {
 		this.code = code;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
-		this.actualJob = actualJob;
 	}
 
 	public Worker() {
@@ -62,19 +60,10 @@ public class Worker {
 		this.address = address;
 	}
 
-	public String getActualJob() {
-		return actualJob;
-	}
-
-	public void setActualJob(String actualJob) {
-		this.actualJob = actualJob;
-	}
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((actualJob == null) ? 0 : actualJob.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + code;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -92,11 +81,6 @@ public class Worker {
 		if (getClass() != obj.getClass())
 			return false;
 		Worker other = (Worker) obj;
-		if (actualJob == null) {
-			if (other.actualJob != null)
-				return false;
-		} else if (!actualJob.equals(other.actualJob))
-			return false;
 		if (address == null) {
 			if (other.address != null)
 				return false;
@@ -125,6 +109,6 @@ public class Worker {
 	@Override
 	public String toString() {
 		return "worker [code=" + code + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", address="
-				+ address + ", actualJob=" + actualJob + "]";
+				+ address + "]";
 	}
 }
