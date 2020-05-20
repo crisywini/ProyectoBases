@@ -8,7 +8,7 @@ public class Client {
 	private String phoneNumber;
 
 	public Client() {
-		super();
+
 	}
 
 	public int getCode() {

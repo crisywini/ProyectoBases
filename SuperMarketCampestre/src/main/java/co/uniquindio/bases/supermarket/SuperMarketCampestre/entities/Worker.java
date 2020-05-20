@@ -2,31 +2,31 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
 public class Worker {
 
-	private String code;
+	private int code;
 	private String name;
 	private String lastName;
 	private String email;
 	private String address;
-	private String actualCharge;
+	private String actualJob;
 
-	public Worker(String code, String name, String lastName, String email, String address, String actualCharge) {
+	public Worker(int code, String name, String lastName, String email, String address, String actualJob) {
 		this.code = code;
 		this.name = name;
 		this.lastName = lastName;
 		this.email = email;
 		this.address = address;
-		this.actualCharge = actualCharge;
+		this.actualJob = actualJob;
 	}
 
 	public Worker() {
 
 	}
 
-	public String getCode() {
+	public int getCode() {
 		return code;
 	}
 
-	public void setCode(String code) {
+	public void setCode(int code) {
 		this.code = code;
 	}
 
@@ -62,21 +62,21 @@ public class Worker {
 		this.address = address;
 	}
 
-	public String getActualCharge() {
-		return actualCharge;
+	public String getActualJob() {
+		return actualJob;
 	}
 
-	public void setActualCharge(String actualCharge) {
-		this.actualCharge = actualCharge;
+	public void setActualJob(String actualJob) {
+		this.actualJob = actualJob;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((actualCharge == null) ? 0 : actualCharge.hashCode());
+		result = prime * result + ((actualJob == null) ? 0 : actualJob.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		result = prime * result + code;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
@@ -92,20 +92,17 @@ public class Worker {
 		if (getClass() != obj.getClass())
 			return false;
 		Worker other = (Worker) obj;
-		if (actualCharge == null) {
-			if (other.actualCharge != null)
+		if (actualJob == null) {
+			if (other.actualJob != null)
 				return false;
-		} else if (!actualCharge.equals(other.actualCharge))
+		} else if (!actualJob.equals(other.actualJob))
 			return false;
 		if (address == null) {
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (code == null) {
-			if (other.code != null)
-				return false;
-		} else if (!code.equals(other.code))
+		if (code != other.code)
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -128,6 +125,6 @@ public class Worker {
 	@Override
 	public String toString() {
 		return "worker [code=" + code + ", name=" + name + ", lastName=" + lastName + ", email=" + email + ", address="
-				+ address + ", actualCharge=" + actualCharge + "]";
+				+ address + ", actualJob=" + actualJob + "]";
 	}
 }
