@@ -6,38 +6,47 @@ public class Client {
 	private String lastName;
 	private String address;
 	private String phoneNumber;
-	
+
 	public Client() {
 		super();
 	}
-	
+
 	public int getCode() {
 		return code;
 	}
+
 	public void setCode(int code) {
 		this.code = code;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getLastName() {
 		return lastName;
 	}
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
@@ -62,5 +71,11 @@ public class Client {
 		if (code != other.code)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Client [code=" + code + ", name=" + name + ", lastName=" + lastName + ", address=" + address
+				+ ", phoneNumber=" + phoneNumber + "]";
 	}
 }

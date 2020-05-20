@@ -1,18 +1,17 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-public class Service {
+public class Inventory {
+
 	private int code;
-	private String name;
-	private String details;
+	private String date;
 
-	public Service(int code, String name, String details) {
-
+	public Inventory(int code, String date) {
 		this.code = code;
-		this.name = name;
-		this.details = details;
+		this.date = date;
 	}
 
-	public Service() {
+	public Inventory() {
+
 	}
 
 	public int getCode() {
@@ -23,20 +22,12 @@ public class Service {
 		this.code = code;
 	}
 
-	public String getName() {
-		return name;
+	public String getDate() {
+		return date;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getDetails() {
-		return details;
-	}
-
-	public void setDetails(String details) {
-		this.details = details;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	@Override
@@ -44,6 +35,7 @@ public class Service {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + code;
+		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		return result;
 	}
 
@@ -55,14 +47,19 @@ public class Service {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Service other = (Service) obj;
+		Inventory other = (Inventory) obj;
 		if (code != other.code)
+			return false;
+		if (date == null) {
+			if (other.date != null)
+				return false;
+		} else if (!date.equals(other.date))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Service [code=" + code + ", name=" + name + ", details=" + details + "]";
+		return "Inventory [code=" + code + ", date=" + date + "]";
 	}
 }
