@@ -88,17 +88,19 @@ public class InitDatabase {
 
 	public static void createAllTables() {
 		String createClientTable = "CREATE TABLE Client ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20), last_name VARCHAR(10), address VARCHAR(40), phone_number VARCHAR(10), PRIMARY KEY (code) );";
-		String createEmployeeTable = "CREATE TABLE Employee ( code VARCHAR(10) NOT NULL, name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL UNIQUE, address VARCHAR(50) NOT NULL, actual_job VARCHAR(40) NOT NULL, PRIMARY KEY (code));"; // creoqueseborra_actualjob
+		String createEmployeeTable = "CREATE TABLE Employee ( code VARCHAR(10) NOT NULL, name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL UNIQUE, address VARCHAR(50) NOT NULL, actual_job VARCHAR(40) NOT NULL, PRIMARY KEY (code) );"; // creoqueseborra_actualjob
 		String createPhoneNumerTable = "CREATE TABLE Phone_number (number VARCHAR(10) NOT NULL, code_employee VARCHAR(10) NOT NULL, PRIMARY KEY(number, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code) );";
-		String createServiceTable = "CREATE TABLE Service ( code int NOT NULL AUTO_INCREMENT, details VARCHAR(40) NOT NULL, name VARCHAR(40) NOT NULL, PRIMARY KEY(code));";
+		String createServiceTable = "CREATE TABLE Service ( code int NOT NULL AUTO_INCREMENT, details VARCHAR(40) NOT NULL, name VARCHAR(40) NOT NULL, PRIMARY KEY(code) );";
 
 		String createServiceInvoice = "CREATE TABLE Invoice_service ( code int NOT NULL AUTO_INCREMENT, code_service int NOT NULL, address VARCHAR(20) NOT NULL, date VARVHAR(20) NOT NULL, description VARCHAR(40), total_payment VARCHAR(20) NOT NULL, PRIMARY KEY (code), FOREIGN KEY(code_service) REFERENCES Service (code) )"; // cantidad,devuelta??_pago_varchar_double?
 		String createProviderTable = "CREATE TABLE Provier ( code int NOT NULL, name VARCHAR(20) NOT NULL, address VARCHAR(20) NOT NULL, email VARCHAR(20), phone_number VARCHAR(10), PRIMARY KEY (code) )"; // code_auto??
 		String createProductTable = "CREATE TABLE Product ( code int NOT NULL AUTO_INCREMENT, code_provider int NOT NULL, name VARCHAR(20) NOT NULL, cantidad int NOT NULL, detalles VARCHAR(40), PRIMARY KEY(code), FOREIGN KEY(code_provider) REFERENCES Provider (code) )";
 		String createInventoryTable = "CREATE TABLE Inventory ( code int NOT NULL AUTO_INCREMENT, date VARCHAR(20) NOT NULL, PRIMARY KEY(code) )";
 		String createContractTable = "CREATE TABLE Contract ( code int NOT NULL AUTO_INCREMENT, code_employee int NOT NULL, salary DOUBLE NOT NULL, start_date VARCHAR(20) NOT NULL, end_date VARCHAR(20) NOT NULL, PRIMARY KEY (code, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code) )"; // salario_double?
-		String createCotractTypeTable = "CREATE TABLE Contract_type ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, desciption VARCHAT(40), code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY (code, code_contract_employee), FOREIGN KEY(code_contract, code_contract_employee) REFERENCES Contract (code) )";
-
+		String createCotractTypeTable = "CREATE TABLE Contract_type ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, desciption VARCHAT(40), code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY (code, code_contract_employee), FOREIGN KEY(code_contract, code_contract_employee) REFERENCES Contract (code) )"; //code_contract_employee??
+		String createJobTable = "CREATE TABLE Job ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, code_employee VARCHAR(10) NOT NULL, code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY(code, code_contract_employee), FOREIGN KEY(code_employee, code_contract) REFERENCES Employee (code) )"; // code_contract_employee??
+		
+		
 		createTable(createClientTable);
 		createTable(createEmployeeTable);
 		createTable(createPhoneNumerTable);
@@ -109,5 +111,6 @@ public class InitDatabase {
 		createTable(createInventoryTable);
 		createTable(createContractTable);
 		createTable(createCotractTypeTable);
+		createTable(createJobTable);
 	}
 }
