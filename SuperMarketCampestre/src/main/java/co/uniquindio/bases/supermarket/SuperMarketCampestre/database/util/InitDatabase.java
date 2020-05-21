@@ -97,10 +97,11 @@ public class InitDatabase {
 		String createProductTable = "CREATE TABLE Product ( code int NOT NULL AUTO_INCREMENT, code_provider int NOT NULL, name VARCHAR(20) NOT NULL, cantidad int NOT NULL, detalles VARCHAR(40), PRIMARY KEY(code), FOREIGN KEY(code_provider) REFERENCES Provider (code) )";
 		String createInventoryTable = "CREATE TABLE Inventory ( code int NOT NULL AUTO_INCREMENT, date VARCHAR(20) NOT NULL, PRIMARY KEY(code) )";
 		String createContractTable = "CREATE TABLE Contract ( code int NOT NULL AUTO_INCREMENT, code_employee int NOT NULL, salary DOUBLE NOT NULL, start_date VARCHAR(20) NOT NULL, end_date VARCHAR(20) NOT NULL, PRIMARY KEY (code, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code) )"; // salario_double?
-		String createCotractTypeTable = "CREATE TABLE Contract_type ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, desciption VARCHAT(40), code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY (code, code_contract_employee), FOREIGN KEY(code_contract, code_contract_employee) REFERENCES Contract (code) )"; //code_contract_employee??
+		String createCotractTypeTable = "CREATE TABLE Contract_type ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, desciption VARCHAT(40), code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY (code, code_contract_employee), FOREIGN KEY(code_contract, code_contract_employee) REFERENCES Contract (code) )"; // code_contract_employee??
 		String createJobTable = "CREATE TABLE Job ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, code_employee VARCHAR(10) NOT NULL, code_contract int NOT NULL, code_contract_employee VARCHAR(10) NOT NULL, PRIMARY KEY(code, code_contract_employee), FOREIGN KEY(code_employee, code_contract) REFERENCES Employee (code) )"; // code_contract_employee??
-		
-		
+		String createSaleTable = "CREATE TABLE Sale ( code int NOT NULL AUTO_INCREMENT, code_order int NOT NULL, code_client int NOT NULL, cost double NOT NULL, order boolean NOT NULL, PRIMARY KEY(code), FOREIGN KEY(code_order, code_client) REFERENCES Order (code) )";
+		String createOrderTable = "CREATE TABLE Order ( code int NOT NULL, phone_number VARCHAR(10) NOT NULL, address VARCHAR(20) NOT NULL, code_employee VARCHAR(10) NOT NULL, PRIMARY KEY(code), FOREIGN KEY(code_employee) REFERENCES Employee (code) )";
+
 		createTable(createClientTable);
 		createTable(createEmployeeTable);
 		createTable(createPhoneNumerTable);
@@ -112,5 +113,7 @@ public class InitDatabase {
 		createTable(createContractTable);
 		createTable(createCotractTypeTable);
 		createTable(createJobTable);
+		createTable(createSaleTable);
+		createTable(createOrderTable);
 	}
 }
