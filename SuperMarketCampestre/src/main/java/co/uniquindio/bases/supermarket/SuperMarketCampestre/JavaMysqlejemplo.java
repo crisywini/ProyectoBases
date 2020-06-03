@@ -16,8 +16,7 @@ import java.util.Properties;
 
 public class JavaMysqlejemplo {
 
-	public static void main(String[] args) throws IOException {
-		System.out.println("Holita mundito");
+	public static void main(String[] args) {
 
 	}
 
