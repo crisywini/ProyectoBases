@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
+
 public class InitDatabase {
 	/**
 	 * This Class will create the database and will create the tables and
@@ -21,6 +23,7 @@ public class InitDatabase {
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
+		Client prueba = new Client("Crisi", "Sánchez", connection);
 	}
 
 	public static String createDatabase(String nameDatabase) {
