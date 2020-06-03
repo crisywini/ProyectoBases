@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.ContractType;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
 
 public class InitDatabase {
 	/**
@@ -23,7 +25,9 @@ public class InitDatabase {
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
-		Client prueba = new Client("Crisi", "Sánchez", connection);
+		Client prueba = new Client("Crisi", "Sánchez");
+		ContractType tipo = new ContractType("Termino indefinido", "TERMINO");
+		Job job = new Job("desarrollador");
 	}
 
 	public static String createDatabase(String nameDatabase) {

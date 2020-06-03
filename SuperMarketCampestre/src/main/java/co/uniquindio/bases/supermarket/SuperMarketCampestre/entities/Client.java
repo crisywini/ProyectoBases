@@ -1,20 +1,18 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Client {
+public class Client extends Conexion{
 	private int code;
 	private String name;
 	private String lastName;
-	private Connection connection;
 
 	public Client() {
 
 	}
-	public Client(String name, String lastName, Connection con) {
-		connection = con;
+	public Client(String name, String lastName) {
 		this.name = name;
 		this.lastName = lastName;
 		saveClient(name, lastName);
@@ -68,26 +66,6 @@ public class Client {
 			return false;
 		return true;
 	}
-
-
-	public Connection getConnection() {
-		return connection;
-	}
-
-
-
-	public void setConnection(Connection connection) {
-		this.connection = connection;
-	}
-
-
-	@Override
-	public String toString() {
-		return "Client [code=" + code + ", name=" + name + ", lastName=" + lastName + 
-				 ", connection=" + connection + "]";
-	}
-
-
 
 	public void saveClient(String name, String lastName) {
 		try {

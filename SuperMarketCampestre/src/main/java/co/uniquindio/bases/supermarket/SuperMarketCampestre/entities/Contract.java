@@ -1,6 +1,7 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -101,9 +102,21 @@ public class Contract {
 		return "Contract [code=" + code + ", salary=" + salary + ", startDate=" + startDate + ", endDate=" + endDate
 				+ "]";
 	}
-	public void saveContract(double salary, String startDate, String endDate) {
+	/**
+	 * 
+	 * @param salary
+	 * @param startDate
+	 * @param endDate
+	 */
+	public void saveContract(double salary, String startDate, String endDate, int codeContractType, String idEmployee, String codeJob) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO Contrato(sueldo, fechaInicio, fechaFin, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?,?)");
+			Date startDateAux = Date.valueOf(startDate);
+			Date endDateAux = Date.valueOf(endDate);
+			statement.setDouble(1, salary);
+			statement.setDate(2, startDateAux);
+			statement.setDate(3, endDateAux);
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

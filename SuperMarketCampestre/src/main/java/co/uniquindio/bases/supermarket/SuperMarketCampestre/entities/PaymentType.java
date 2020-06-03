@@ -1,69 +1,46 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-public class PaymentType {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
+public class PaymentType extends Conexion{
+
+	private int code;
 	private String name;
 	private String description;
-
+	
 	public PaymentType(String name, String description) {
-
-		this.name = name;
+		this.name = name.toUpperCase();
 		this.description = description;
+		saveType(this.name, this.description);
 	}
-
-	public PaymentType() {
-
+	public int getCode() {
+		return code;
 	}
-
+	public void setCode(int code) {
+		this.code = code;
+	}
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getDescription() {
 		return description;
 	}
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PaymentType other = (PaymentType) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "PaymentType [name=" + name + ", description=" + description + "]";
+	private void saveType(String name, String description) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO TipoPago(nombre, descripcion) VALUES(?,?)");
+			statement.setString(1, name);
+			statement.setString(2, description);
+			statement.executeUpdate();
+			System.out.println("<Tipo pago creado>");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
