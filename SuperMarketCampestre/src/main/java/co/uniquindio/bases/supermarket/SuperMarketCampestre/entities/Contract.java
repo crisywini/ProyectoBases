@@ -108,7 +108,7 @@ public class Contract {
 	 * @param startDate
 	 * @param endDate
 	 */
-	public void saveContract(double salary, String startDate, String endDate, int codeContractType, String idEmployee, String codeJob) {
+	private void saveContract(double salary, String startDate, String endDate, int codeContractType, String idEmployee, String codeJob) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO Contrato(sueldo, fechaInicio, fechaFin, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?,?)");
 			Date startDateAux = Date.valueOf(startDate);

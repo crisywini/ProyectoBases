@@ -67,7 +67,6 @@ public class ContractType extends Conexion{
 			statement.setString(1, description);
 			statement.setString(2, name);
 			statement.executeUpdate();
-			System.out.println("<Tipo contrato creado>");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,13 +1,17 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-public class Inventory {
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Inventory extends Conexion{
 
 	private int code;
 	private String date;
 
-	public Inventory(int code, String date) {
-		this.code = code;
+	public Inventory(String date) {
 		this.date = date;
+		saveInventory(this.date);
 	}
 
 	public Inventory() {
@@ -61,5 +65,14 @@ public class Inventory {
 	@Override
 	public String toString() {
 		return "Inventory [code=" + code + ", date=" + date + "]";
+	}
+	private void saveInventory(String date) {
+		try {
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO Inventario(fecha) VALUES(?)");
+			statement.setDate(1, Date.valueOf(date));
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

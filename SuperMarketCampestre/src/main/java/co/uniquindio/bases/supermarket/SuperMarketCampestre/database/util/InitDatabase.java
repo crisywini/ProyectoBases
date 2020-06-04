@@ -1,13 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.ContractType;
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Inventory;
 
 public class InitDatabase {
 	/**
@@ -25,9 +24,7 @@ public class InitDatabase {
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
-		Client prueba = new Client("Crisi", "Sánchez");
-		ContractType tipo = new ContractType("Termino indefinido", "TERMINO");
-		Job job = new Job("desarrollador");
+		Inventory inventarioPrueba = new Inventory("2020-06-03");
 	}
 
 	public static String createDatabase(String nameDatabase) {
