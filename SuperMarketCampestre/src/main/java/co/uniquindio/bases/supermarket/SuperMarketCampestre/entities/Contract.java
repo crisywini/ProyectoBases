@@ -1,29 +1,33 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Contract {
+public class Contract extends Conexion {
 
 	private int code;
 	private double salary;
 	private String startDate;
 	private String endDate;
-	private Connection connection;
-
-	public Contract(int code, double salary, String startDate, String endDate, Connection con) {
-
-		this.code = code;
-		this.salary = salary;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		connection = con;
-	}
+	private int code_type;
+	private String code_employee;
+	private int code_job;
 
 	public Contract() {
 
+	}
+
+	public Contract(double salary, String startDate, String endDate, int code_type, String code_employee, int code_job) {
+
+		this.salary = salary;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.code_type = code_type;
+		this.code_employee = code_employee;
+		this.code_job = code_job;
+		
+		saveContract(salary, this.startDate, this.endDate, code_type, code_employee, code_job);
 	}
 
 	public int getCode() {
@@ -58,68 +62,51 @@ public class Contract {
 		this.endDate = endDate;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + code;
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(salary);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		return result;
+	public int getCode_type() {
+		return code_type;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Contract other = (Contract) obj;
-		if (code != other.code)
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (Double.doubleToLongBits(salary) != Double.doubleToLongBits(other.salary))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		return true;
+	public void setCode_type(int code_type) {
+		this.code_type = code_type;
 	}
 
-	@Override
-	public String toString() {
-		return "Contract [code=" + code + ", salary=" + salary + ", startDate=" + startDate + ", endDate=" + endDate
-				+ "]";
+	public String getCode_employee() {
+		return code_employee;
 	}
-	/**
-	 * 
-	 * @param salary
-	 * @param startDate
-	 * @param endDate
-	 */
-	private void saveContract(double salary, String startDate, String endDate, int codeContractType, String idEmployee, String codeJob) {
+
+	public void setCode_employee(String code_employee) {
+		this.code_employee = code_employee;
+	}
+
+	public int getCode_job() {
+		return code_job;
+	}
+
+	public void setCode_job(int code_job) {
+		this.code_job = code_job;
+	}
+
+	private void saveContract(double salary, String startDate, String endDate, int code_type, String code_employee,
+			int code_job) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO Contrato(sueldo, fechaInicio, fechaFin, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?,?)");
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT INTO Contrato(sueldo, fechaInicio, fechaFin, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?,?)");
+		
 			Date startDateAux = Date.valueOf(startDate);
 			Date endDateAux = Date.valueOf(endDate);
 			statement.setDouble(1, salary);
 			statement.setDate(2, startDateAux);
 			statement.setDate(3, endDateAux);
-			
+			statement.setInt(4, code_type);
+			statement.setString(5, code_employee);
+			statement.setInt(6, code_job);
+
+			statement.executeUpdate();
+			System.out.println("Se ha guardado el contrato: " + salary + " " + startDate + " " + endDate + " "
+					+ code_type + " " + code_employee + " " + code_job);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
 }

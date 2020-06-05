@@ -1,20 +1,26 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-public class Sale {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Sale extends Conexion {
 
 	private int code;
-	private double totalPrice;
-	private boolean order;
-
-	public Sale(int code, double totalPrice, boolean order) {
-
-		this.code = code;
-		this.totalPrice = totalPrice;
-		this.order = order;
-	}
+	private double total_payment;
+	private int code_client;
+	private int code_order;
 
 	public Sale() {
+	
+	}
+	
+	public Sale(double total_payment, int code_client, int code_order) {
 
+		this.total_payment = total_payment;
+		this.code_client = code_client;
+		this.code_order = code_order;
+
+		saveSale(total_payment, code_client, code_order);
 	}
 
 	public int getCode() {
@@ -25,55 +31,43 @@ public class Sale {
 		this.code = code;
 	}
 
-	public double getTotalPrice() {
-		return totalPrice;
+	public double getTotal_payment() {
+		return total_payment;
 	}
 
-	public void setTotalPrice(double totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotal_payment(double total_payment) {
+		this.total_payment = total_payment;
 	}
 
-	public boolean isOrder() {
-		return order;
+	public int getCode_client() {
+		return code_client;
 	}
 
-	public void setOrder(boolean order) {
-		this.order = order;
+	public void setCode_client(int code_client) {
+		this.code_client = code_client;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + code;
-		result = prime * result + (order ? 1231 : 1237);
-		long temp;
-		temp = Double.doubleToLongBits(totalPrice);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
+	public int getCode_order() {
+		return code_order;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Sale other = (Sale) obj;
-		if (code != other.code)
-			return false;
-		if (order != other.order)
-			return false;
-		if (Double.doubleToLongBits(totalPrice) != Double.doubleToLongBits(other.totalPrice))
-			return false;
-		return true;
+	public void setCode_order(int code_order) {
+		this.code_order = code_order;
 	}
 
-	@Override
-	public String toString() {
-		return "Sale [code=" + code + ", totalPrice=" + totalPrice + ", order=" + order + "]";
+	private void saveSale(double total_payment, int code_client, int code_order) {
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO Venta(costo_total, code_cliente, code_domicilio) values(?,?,?);");
+			statement.setDouble(1, total_payment);
+			statement.setInt(2, code_client);
+			statement.setInt(3, code_order);
+
+			statement.executeUpdate();
+			System.out.println("Se ha guardado la venta: " + total_payment + " " + code_client + " " + code_order);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

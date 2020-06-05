@@ -3,10 +3,14 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Job extends Conexion{
+public class Job extends Conexion {
 
 	public int code;
 	public String name;
+
+	public Job() {
+
+	}
 
 	public Job(String name) {
 
@@ -29,12 +33,14 @@ public class Job extends Conexion{
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	private void saveJob(String name) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO Cargo(nombre) VALUES(?);");
 			statement.setString(1, name);
+
 			statement.executeUpdate();
-			
+			System.out.println("Se ha guardado el cargo: " + name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

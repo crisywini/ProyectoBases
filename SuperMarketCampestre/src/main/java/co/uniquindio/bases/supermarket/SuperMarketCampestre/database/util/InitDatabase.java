@@ -1,12 +1,29 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client_Service;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Contract;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.ContractType;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee_Inventory;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Inventory;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Invoice_Service;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PaymentType;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PhoneNumber;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product_Inventory;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product_Sale;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product_provider;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Sale;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Service;
 
 public class InitDatabase {
 	/**
@@ -24,7 +41,27 @@ public class InitDatabase {
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
-		Inventory inventarioPrueba = new Inventory("2020-06-03");
+		
+		Client client = new Client("Juan", "Salazar");
+		Service service = new Service("Detalles del servicio recarga", "Recarga");
+		Client_Service clientService = new Client_Service(client.getCode(), service.getCode());
+//		Invoice_Service invoService = new Invoice_Service(null, "2020-06-03", "Descripcion", 2, 5000, 500, 0);
+//		Job job = new Job("Auxiliar de Caja");		
+//		Employee e = new Employee("01", "Carlos", "Rojas", "cr@gmail.com", "casa", 0);
+//		PhoneNumber phone = new PhoneNumber(7471234, "01");
+//		Inventory inventory = new Inventory("2020-06-03");
+//		Employee_Inventory emploInventory = new Employee_Inventory("01", 0);
+//		Provider provider = new Provider("pro@gmail.com", "Proveedor1", "Fabrica1", "7971919");
+//		Product product = new Product(2, "Papas", "Papas fritas", 3000, 0);
+//		Product_provider pp = new Product_provider(0, 0);
+//		Product_Inventory productInventory = new Product_Inventory(0, 0, 2);
+//		ContractType contractType = new ContractType("a 6 meses", "Definido");
+//		Contract contract = new Contract(900000, "2018-06-03", "2020-06-03", 0, "01", 0);
+//		PaymentType paymentType = new PaymentType("Efectivo", "Pago en efectivo");
+//		Order order = new Order("Santa Maria del Pinar", "01");
+//		Sale sale = new Sale(5000, 0, 0);
+//		Product_Sale productSale = new Product_Sale(0, 0);
+
 	}
 
 	public static String createDatabase(String nameDatabase) {
@@ -93,47 +130,6 @@ public class InitDatabase {
 	 * This method allows to create all the needed tables
 	 */
 	public static void createAllTables() {
-		//		String createServiceTable = "CREATE TABLE Service ( code int NOT NULL AUTO_INCREMENT, details VARCHAR(40) NOT NULL, name VARCHAR(40) NOT NULL, PRIMARY KEY(code) );";
-		//		String createClientTable = "CREATE TABLE Client ( code int NOT NULL AUTO_INCREMENT, code_service_invoice int NOT NULL, name VARCHAR(20), last_name VARCHAR(10), address VARCHAR(40), phone_number VARCHAR(10), PRIMARY KEY (code), FOREIGN KEY(code_service_invoice) REFERENCES Service_invoice (code) );";
-		//		String createEmployeeTable = "CREATE TABLE Employee ( code VARCHAR(10) NOT NULL, code_job int NOT NULL, name VARCHAR(20) NOT NULL, last_name VARCHAR(20) NOT NULL, email VARCHAR(40) NOT NULL UNIQUE, address VARCHAR(50) NOT NULL, PRIMARY KEY (code), FOREIGN KEY(code_job) REFERENCES Job (code) );";
-		//		String createPhoneNumerTable = "CREATE TABLE Phone_number (number VARCHAR(10) NOT NULL, code_employee VARCHAR(10) NOT NULL, PRIMARY KEY(number, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code) );";
-		//
-		//		String createServiceInvoiceTable = "CREATE TABLE Service_invoice ( code int NOT NULL AUTO_INCREMENT, code_service int NOT NULL, address VARCHAR(20) NOT NULL, date VARVHAR(20) NOT NULL, description VARCHAR(40), total_payment VARCHAR(20) NOT NULL, PRIMARY KEY (code), FOREIGN KEY(code_service) REFERENCES Service (code) )"; // cantidad,devuelta??_pago_varchar_double?
-		//		String createProviderTable = "CREATE TABLE Provider ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, address VARCHAR(20) NOT NULL, email VARCHAR(20), phone_number VARCHAR(10), PRIMARY KEY (code) )"; // code_auto??
-		//		String createProductTable = "CREATE TABLE Product ( code int NOT NULL AUTO_INCREMENT, code_provider int NOT NULL, name VARCHAR(20) NOT NULL, cantidad int NOT NULL, detalles VARCHAR(40), PRIMARY KEY(code), FOREIGN KEY(code_provider) REFERENCES Provider (code) )";
-		//		String createInventoryTable = "CREATE TABLE Inventory ( code int NOT NULL AUTO_INCREMENT, date VARCHAR(20) NOT NULL, PRIMARY KEY(code) )";
-		//		String createContractTable = "CREATE TABLE Contract ( code int NOT NULL AUTO_INCREMENT, code_employee int NOT NULL, code_contract_type int NOT NULL, salary DOUBLE NOT NULL, start_date VARCHAR(20) NOT NULL, end_date VARCHAR(20) NOT NULL, PRIMARY KEY (code, code_employee), FOREIGN KEY(code_employee) REFERENCES Employee (code), FOREIGN KEY(code_contract_type) REFERENCES Contract_type (code) )"; // salario_double?
-		//		String createCotractTypeTable = "CREATE TABLE Contract_type ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, desciption VARCHAT(40), code_contract int NOT NULL, PRIMARY KEY (code), FOREIGN KEY(code_contract) REFERENCES Contract (code) )";
-		//		String createJobTable = "CREATE TABLE Job ( code int NOT NULL AUTO_INCREMENT, name VARCHAR(20) NOT NULL, code_employee VARCHAR(10) NOT NULL, code_contract int NOT NULL, PRIMARY KEY(code), FOREIGN KEY(code_employee) REFERENCES Employee (code), FOREIGN KEY(code_contract) REFERENCES Contract (code) )";
-		//		String createSaleTable = "CREATE TABLE Sale ( code int NOT NULL AUTO_INCREMENT, code_order int NOT NULL, code_client int NOT NULL, code_payment_type int NOT NULL, cost double NOT NULL, order boolean NOT NULL, PRIMARY KEY(code), FOREIGN KEY(code_order) REFERENCES Order (code), FOREIGN KEY(code_client) REFERENCES Client (code) )"; // cost_double?
-		//		String createOrderTable = "CREATE TABLE Order ( code int NOT NULL, code_employee VARCHAR(10) NOT NULL, PRIMARY KEY(code), FOREIGN KEY(code_employee) REFERENCES Employee (code) )";
-		//		String createPaymentTypeTable = "CREATE TABLE Payment_type ( code int NOT NULL, code_sale int NOT NULL, name VARCHAR(20) NOT NULL, description VARCHAR(20), PRIMARY KEY(code, code_sale), FOREIGN KEY(code_sale) REFERENCES Sale (code) )";
-		//		String createEmployeeInventaryTable = "CREATE TABLE Employee_inventary ( code_employee VARCHAR(10) NOT NULL, code_inventary int NOT NULL, PRIMARY KEY(code_employee, code_inventary), FOREIGN KEY(code_employee) REFERENCES Employee (code), FOREIGN KEY(code_inventary) REFERENCES Inventary (code), FOREIGN KEY(code_payment_type) REFERENCES Payment_type (code) )";
-		//		String createProductInventaryTable = "CREATE TABLE Product_inventari ( code_product int NOT NULL, code_inventary int NOT NULL, quantity int NOT NULL, FOREIGN KEY(code_product) REFERENCES Product (code), FOREIGN KEY(code_inventary) REFERENCES Inventary (code) )";
-		//		String createProductSaleTable = "CREATE TABLE Product_sale ( code_product int NOT NULL, code_sale int NOT NULL, quantity int NOT NULL, FOREIGN KEY(code_product) REFERENCES Product (code), FOREIGN KEY(code_sale) REFERENCES Sale (code) )";
-		//		String createClientServiceTable = "CREATE TABLE Client_service ( code_client int NOT NULL, code_service int NOT NULL, FOREIGN KEY(code_client) REFERENCES Client (code), FOREIGN KEY(code_service) REFERENCES Service (code) )";
-		//		String createProductProviderTable = "CREATE TABLE Product_provider ( code_product int NOT NULL, code_provider int NOT NULL, PRIMARY KEY(code_product, code_provider), FOREIGN KEY(code_product) REFERENCES Product (code), FOREIGN KEY(code_provider) REFERENCES Provider (code) )";
-		//
-		//		createTable(createServiceTable);
-		//		createTable(createEmployeeTable);
-		//		createTable(createPhoneNumerTable);
-		//		createTable(createInventoryTable);
-		//		createTable(createEmployeeInventaryTable);
-		//		createTable(createClientTable);
-		//		createTable(createServiceInvoiceTable);
-		//		createTable(createProviderTable);
-		//		createTable(createProductTable);
-		//		createTable(createContractTable);
-		//		createTable(createCotractTypeTable);
-		//		createTable(createJobTable);
-		//		createTable(createSaleTable);
-		//		createTable(createOrderTable);
-		//		createTable(createPaymentTypeTable);
-		//
-		//		createTable(createProductInventaryTable);
-		//		createTable(createProductSaleTable);
-		//		createTable(createClientServiceTable);
-		//		createTable(createProductProviderTable);
 
 		createTable("CREATE TABLE Cliente(code int NOT NULL AUTO_INCREMENT,  nombre VARCHAR(80), apellido VARCHAR(80), PRIMARY KEY (code));");
 		createTable("CREATE TABLE Servicio(code int NOT NULL AUTO_INCREMENT, detalle VARCHAR(255), nombre VARCHAR(255), PRIMARY KEY (code));");

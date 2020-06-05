@@ -1,10 +1,10 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Client extends Conexion{
+public class Client extends Conexion {
+	
 	private int code;
 	private String name;
 	private String lastName;
@@ -12,13 +12,13 @@ public class Client extends Conexion{
 	public Client() {
 
 	}
+
 	public Client(String name, String lastName) {
 		this.name = name;
 		this.lastName = lastName;
+		
 		saveClient(name, lastName);
 	}
-
-
 
 	public int getCode() {
 		return code;
@@ -44,7 +44,6 @@ public class Client extends Conexion{
 		this.lastName = lastName;
 	}
 
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -67,13 +66,15 @@ public class Client extends Conexion{
 		return true;
 	}
 
-	public void saveClient(String name, String lastName) {
+	private void saveClient(String name, String lastName) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO Cliente(nombre, apellido) values(?,?);");
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO Cliente(nombre, apellido) values(?,?);");
 			statement.setString(1, name);
 			statement.setString(2, lastName);
+			
 			statement.executeUpdate();
-			System.out.println("Se ha guardado el cliente: "+name+" "+lastName);
+			System.out.println("Se ha guardado el cliente: " + name + " " + lastName);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

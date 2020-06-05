@@ -3,36 +3,50 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class PhoneNumber extends Conexion{
+public class PhoneNumber extends Conexion {
+
 	private int number;
-	private String idEmployee;
-	
-	public PhoneNumber(int number, String idEmployee) {
-		this.number = number;
-		this.idEmployee = idEmployee;
-		savePhoneNumber(this.number, this.idEmployee);
+	private String code_employee;
+
+	public PhoneNumber() {
+
 	}
+
+	public PhoneNumber(int number, String code_employee) {
+
+		this.number = number;
+		this.code_employee = code_employee;
+
+		savePhone(number, code_employee);
+	}
+
 	public int getNumber() {
 		return number;
 	}
+
 	public void setNumber(int number) {
 		this.number = number;
 	}
-	public String getIdEmployee() {
-		return idEmployee;
+
+	public String getCode_employee() {
+		return code_employee;
 	}
-	public void setIdEmployee(String idEmployee) {
-		this.idEmployee = idEmployee;
+
+	public void setCode_employee(String code_employee) {
+		this.code_employee = code_employee;
 	}
-	
-	private void savePhoneNumber(int number, String idEmployee) {
+
+	private void savePhone(int number, String code_employee) {
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO Telefono(numero, empleado_cedula) VALUES(?,?);");
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO Telefono(numero, empleado_cedula) values(?,?);");
 			statement.setInt(1, number);
-			statement.setString(2, idEmployee);
+			statement.setString(2, code_employee);
+			statement.executeUpdate();
+			System.out.println("Se ha guardado el telefono: " + number + " " + code_employee);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
+
 }

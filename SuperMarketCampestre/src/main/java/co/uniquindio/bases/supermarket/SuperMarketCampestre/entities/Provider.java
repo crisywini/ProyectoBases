@@ -1,24 +1,28 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
-public class Provider {
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class Provider extends Conexion {
 
 	private int code;
-	private String name;
 	private String email;
+	private String name;
 	private String address;
 	private String phone;
 
-	public Provider(int code, String name, String email, String address, String phone) {
+	public Provider() {
+	
+	}
+	
+	public Provider(String email, String name, String address, String phone) {
 
-		this.code = code;
-		this.name = name;
 		this.email = email;
+		this.name = name;
 		this.address = address;
 		this.phone = phone;
-	}
 
-	public Provider() {
-
+		saveProvider(email, name, address, phone);
 	}
 
 	public int getCode() {
@@ -29,20 +33,20 @@ public class Provider {
 		this.code = code;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getAddress() {
@@ -61,55 +65,19 @@ public class Provider {
 		this.phone = phone;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + code;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		return result;
-	}
+	private void saveProvider(String email, String name, String address, String phone) {
+		try {
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO Proveedor(email, nombre, direccion, telefono) values(?,?,?,?);");
+			statement.setString(1, email);
+			statement.setString(2, name);
+			statement.setString(3, address);
+			statement.setString(4, phone);
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Provider other = (Provider) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (code != other.code)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Provider [code=" + code + ", name=" + name + ", email=" + email + ", address=" + address + ", phone="
-				+ phone + "]";
+			statement.executeUpdate();
+			System.out.println("Se ha guardado el proveedor: " + email + " " + name + " " + address + " " + phone);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
