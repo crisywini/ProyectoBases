@@ -9,6 +9,7 @@ import org.junit.Test;
  */
 public class AppTest 
 {
+	
     /**
      * Rigorous Test :-)
      */
@@ -16,5 +17,9 @@ public class AppTest
     public void shouldAnswerWithTrue()
     {
         assertTrue( true );
+    }
+    
+    private void  initData() {
+    	
     }
 }

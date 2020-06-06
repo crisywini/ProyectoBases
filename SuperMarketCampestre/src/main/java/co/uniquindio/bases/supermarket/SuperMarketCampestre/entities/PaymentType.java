@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
-public class PaymentType extends Conexion {
+
+public class PaymentType {
 
 	private int code;
 	private String name;
@@ -18,7 +21,6 @@ public class PaymentType extends Conexion {
 		this.name = name.toUpperCase();
 		this.description = description;
 
-		saveType(this.name, this.description);
 	}
 
 	public int getCode() {
@@ -45,7 +47,7 @@ public class PaymentType extends Conexion {
 		this.description = description;
 	}
 
-	private void saveType(String name, String description) {
+	public void saveType(String name, String description, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO TipoPago(nombre, descripcion) VALUES(?,?)");

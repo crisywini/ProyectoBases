@@ -1,4 +1,4 @@
-package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
+package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

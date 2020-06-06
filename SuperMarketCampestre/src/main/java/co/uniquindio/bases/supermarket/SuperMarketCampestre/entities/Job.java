@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
-public class Job extends Conexion {
+
+public class Job {
 
 	public int code;
 	public String name;
@@ -15,7 +18,6 @@ public class Job extends Conexion {
 	public Job(String name) {
 
 		this.name = name.toUpperCase();
-		saveJob(this.name);
 	}
 
 	public int getCode() {
@@ -34,7 +36,7 @@ public class Job extends Conexion {
 		this.name = name;
 	}
 
-	private void saveJob(String name) {
+	public void saveJob(String name, Connection connection) {
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO Cargo(nombre) VALUES(?);");
 			statement.setString(1, name);

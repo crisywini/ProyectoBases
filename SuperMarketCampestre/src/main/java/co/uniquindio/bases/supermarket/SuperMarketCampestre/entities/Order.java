@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
-public class Order extends Conexion {
+
+public class Order {
 
 	public int code;
 	public String address;
@@ -18,7 +21,6 @@ public class Order extends Conexion {
 		this.address = address;
 		this.code_employee = code_employee;
 
-		saveOrder(address, code_employee);
 	}
 
 	public int getCode() {
@@ -45,7 +47,7 @@ public class Order extends Conexion {
 		this.code_employee = code_employee;
 	}
 
-	private void saveOrder(String address, String code_employee) {
+	public void saveOrder(String address, String code_employee, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO Domicilio(direccion, cedula_empleado) values(?,?);");

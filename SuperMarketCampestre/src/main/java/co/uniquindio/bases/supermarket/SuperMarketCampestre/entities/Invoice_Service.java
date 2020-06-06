@@ -1,10 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
+import java.sql.Connection;
 import java.sql.Date;
 
-public class Invoice_Service extends Conexion {
+public class Invoice_Service {
 
 	private int code;
 	private String address;
@@ -30,7 +32,6 @@ public class Invoice_Service extends Conexion {
 		this.exchange = exchange;
 		this.code_service = code_service;
 
-		saveInvoice_Service(address, this.date, description, quantity, total_payment, exchange, code_service);
 	}
 
 	public int getCode() {
@@ -97,8 +98,8 @@ public class Invoice_Service extends Conexion {
 		this.code_service = code_service;
 	}
 
-	private void saveInvoice_Service(String address, String date, String description, int quantity, double total_payment,
-			double exchange, int code_service) {
+	public void saveInvoice_Service(String address, String date, String description, int quantity, double total_payment,
+			double exchange, int code_service, Connection connection) {
 		try {
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO Factura_servicio(direccion, fecha, descripcion, cantidad, totalPago, devuelta, code_servicio) values(?,?,?,?,?,?,?);");

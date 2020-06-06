@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 
-public class Service extends Conexion {
+
+public class Service {
 
 	private int code;
 	private String detail;
@@ -18,7 +21,6 @@ public class Service extends Conexion {
 		this.detail = detail;
 		this.name = name;
 
-		saveService(detail, name);
 	}
 
 	public int getCode() {
@@ -45,7 +47,7 @@ public class Service extends Conexion {
 		this.detail = detail;
 	}
 
-	private void saveService(String detail, String name) {
+	public void saveService(String detail, String name, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO Servicio(detalle, nombre) values(?,?);");

@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Product_Sale extends Conexion {
+
+public class Product_Sale {
 
 	private int code_product;
 	private int code_sale;
@@ -17,7 +20,6 @@ public class Product_Sale extends Conexion {
 		this.code_product = code_product;
 		this.code_sale = code_sale;
 
-		saveProductSale(code_product, code_sale);
 	}
 
 	public int getCode_product() {
@@ -36,7 +38,7 @@ public class Product_Sale extends Conexion {
 		this.code_sale = code_sale;
 	}
 
-	private void saveProductSale(int code_product, int code_sale) {
+	public void saveProductSale(int code_product, int code_sale, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO Producto_venta(code_producto, code_venta) values(?,?);");

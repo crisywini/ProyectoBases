@@ -1,9 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
+import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ContractType extends Conexion {
+
+public class ContractType{
 
 	private int code;
 	private String description;
@@ -17,7 +20,6 @@ public class ContractType extends Conexion {
 		this.description = description;
 		this.name = name.toUpperCase();
 
-		saveType(this.description, this.name);
 	}
 
 	public int getCode() {
@@ -49,7 +51,7 @@ public class ContractType extends Conexion {
 	 * @param description
 	 * @param name
 	 */
-	private void saveType(String description, String name) {
+	public void saveType(String description, String name, Connection connection) {
 
 		try {
 			PreparedStatement statement = connection
