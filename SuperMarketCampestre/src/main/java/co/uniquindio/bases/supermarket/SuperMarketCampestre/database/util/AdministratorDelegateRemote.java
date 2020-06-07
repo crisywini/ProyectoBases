@@ -66,4 +66,8 @@ public interface AdministratorDelegateRemote {
 	List<Employee> getAllEmployees();
 	List<Product> getAllProducts();
 	List<Provider> getAllProviders();
+	
+	
+	List<Product> getProductsWithTheHighestPrice();
+	List<Provider> getProvidersGmail();
 }

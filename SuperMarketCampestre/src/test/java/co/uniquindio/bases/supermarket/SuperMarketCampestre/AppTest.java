@@ -93,7 +93,7 @@ public class AppTest {
 	@Test
 	public void addProviderTest() {
 		try {
-			admin.addProvider("prove3@mail.com", "ELVIVE", "por la 14", "3156468897");
+			admin.addProvider("prove9@gmail.com", "ELVIVE", "por la 14", "3156468897");
 			assertTrue(true);
 		} catch (EntityRepeatedException e) {
 			System.err.println(e.getMessage());
@@ -113,7 +113,7 @@ public class AppTest {
 	@Test
 	public void addProductTest() {
 		try {
-			admin.addProduct(50, "Leche deslactosada", "Leche deslactosada de parmalat", 56000);
+			admin.addProduct(50, "Bananos", "Bananos de la finca de Mateo", 3200);
 			assertTrue(true);
 		} catch (EntityRepeatedException e) {
 			System.err.println(e.getMessage());
@@ -162,6 +162,6 @@ public class AppTest {
 	}
 	@Test
 	public void getContractListTest() {
-		admin.getAllProviders();
+		admin.getProvidersGmail();
 	}
 }

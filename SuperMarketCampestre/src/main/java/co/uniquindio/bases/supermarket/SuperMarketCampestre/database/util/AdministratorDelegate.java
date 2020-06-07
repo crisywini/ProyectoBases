@@ -541,4 +541,40 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		}
 		return providerList;
 	}
+
+	@Override
+	public List<Product> getProductsWithTheHighestPrice() {
+		List<Product> productList = new ArrayList<Product>();
+		try {
+			final String SQL = "SELECT * FROM Producto ORDER BY precio DESC LIMIT 5;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				System.out.println(resultSet.getDouble(5));
+				productList.add(new Product(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getDouble(5)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return productList;
+	}
+
+	@Override
+	public List<Provider> getProvidersGmail() {
+		List<Provider> providerList = new ArrayList<Provider>();
+		try {
+			final String SQL = "SELECT * FROM Proveedor WHERE email like '%@gmail%';";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				providerList.add(new Provider(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return providerList;
+	}
+	
 }
