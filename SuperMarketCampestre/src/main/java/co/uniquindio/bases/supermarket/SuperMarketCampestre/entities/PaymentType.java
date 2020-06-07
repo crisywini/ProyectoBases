@@ -16,8 +16,8 @@ public class PaymentType {
 
 	}
 
-	public PaymentType(String name, String description) {
-
+	public PaymentType(int code, String name, String description) {
+		this.code = code;
 		this.name = name.toUpperCase();
 		this.description = description;
 
@@ -45,6 +45,12 @@ public class PaymentType {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	
+
+	@Override
+	public String toString() {
+		return name;
 	}
 
 	public void saveType(String name, String description, Connection connection) {

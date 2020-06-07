@@ -5,8 +5,11 @@ import java.util.List;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Contract;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PaymentType;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
 
@@ -62,11 +65,18 @@ public interface AdministratorDelegateRemote {
 
 	boolean removeProvider(int code) throws NonexistentEntityException;
 	Employee loggin(String email, String id)throws NonexistentEntityException;
+	Product getProduct(int code) throws NonexistentEntityException;
+	Order getOrder(String address, String code) throws NonexistentEntityException;
+	Client getClient(String name, String lastName) throws NonexistentEntityException;
 
 	List<Contract> getAllContracts();
 	List<Employee> getAllEmployees();
 	List<Product> getAllProducts();
 	List<Provider> getAllProviders();
+	
+	List<PaymentType> getAllPaymentType();
+	
+	void updateProduct(Product product);
 	
 	
 	List<Product> getProductsWithTheHighestPrice();

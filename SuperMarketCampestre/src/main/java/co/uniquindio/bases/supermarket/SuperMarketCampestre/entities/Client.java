@@ -14,7 +14,8 @@ public class Client{
 
 	}
 
-	public Client(String name, String lastName) {
+	public Client(int code, String name, String lastName) {
+		this.code = code;
 		this.name = name;
 		this.lastName = lastName;
 	}

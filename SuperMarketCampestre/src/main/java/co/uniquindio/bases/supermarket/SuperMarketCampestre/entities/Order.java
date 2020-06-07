@@ -16,8 +16,8 @@ public class Order {
 
 	}
 
-	public Order(String address, String code_employee) {
-
+	public Order(int code, String address, String code_employee) {
+		this.code = code;
 		this.address = address;
 		this.code_employee = code_employee;
 

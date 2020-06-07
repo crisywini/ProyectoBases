@@ -7,6 +7,7 @@ import org.junit.Test;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 
 /**
  * Unit test for simple App.
@@ -90,6 +91,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addProviderTest() {
 		try {
@@ -100,6 +102,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addServiceTest() {
 		try {
@@ -110,6 +113,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addProductTest() {
 		try {
@@ -120,6 +124,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void removeContractTest() {
 		try {
@@ -130,6 +135,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void removeEmployeeTest() {
 		try {
@@ -140,6 +146,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void removeProductTest() {
 		try {
@@ -150,6 +157,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void removeProviderTest() {
 		try {
@@ -160,6 +168,14 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
+	@Test
+	public void updateProductTest() {
+		Product product = new Product(16, 6, "Leche de cerdo", " de la finca de don Agustin", 7500);
+		admin.updateProduct(product);
+		assertTrue(true);
+	}
+
 	@Test
 	public void getContractListTest() {
 		admin.getProvidersGmail();
