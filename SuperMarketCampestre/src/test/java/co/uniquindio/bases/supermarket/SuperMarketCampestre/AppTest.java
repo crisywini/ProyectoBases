@@ -194,7 +194,7 @@ public class AppTest {
 	public void get5OrderByCost() {
 		admin.get5OrderByCost();
 	}
-	
+
 	@Test
 	public void getContractByJob() {
 		admin.getContractByJob();
@@ -204,5 +204,15 @@ public class AppTest {
 	public void getEmployeeBySale() {
 		admin.getEmployeeBySale();
 	}
-	
+
+	@Test
+	public void getEmployeeByPhoneNumber() {
+		admin.getEmployeeByPhoneNumber();
+	}
+
+	@Test
+	public void getQuantityOrderByEmployee() {
+		admin.getQuantityOrderByEmployee();
+	}
+
 }

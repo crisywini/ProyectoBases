@@ -87,6 +87,10 @@ public interface AdministratorDelegateRemote {
 	List<Job> getContractByJob();
 //	nombre del empleado que más ventas realizo
 	List<Employee> getEmployeeBySale();
-//	
+//	Nombre de los 3 empleados que tienen más números de telefono
+	List<Employee> getEmployeeByPhoneNumber();
+//	Nombre del numero de compras que realizan los clientes con su nombre
+	List<Order> getQuantityOrderByEmployee();
+	
 	
 }
