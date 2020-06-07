@@ -51,6 +51,7 @@ public class AuxiliarProductViewController {
 	}
 
 	public void initTableView() {
+		tableView.getItems().clear();
 		codeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().getName());
 		detailColumn.setCellValueFactory(cellData -> cellData.getValue().getDetails());

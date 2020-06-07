@@ -72,7 +72,7 @@ public class SalesViewController {
 	@FXML
 	void handleAddClientButton(ActionEvent event) {
 		if (isInputClientValid()) {
-			admin.addClient(clientNameField.getText(), clientLastNameField.getText());
+			admin.addClient(clientNameField.getText().trim(), clientLastNameField.getText().trim());
 			MainController.showAlert("El cliente: " + clientNameField.getText() + " ha sido agregado con exito",
 					"INFORMACIÓN", AlertType.INFORMATION);
 		}
@@ -139,9 +139,14 @@ public class SalesViewController {
 					admin.addOrder(addressField.getText(), lastView.getEmployee().getCode());
 					try {
 						Order order = admin.getOrder(addressField.getText(), lastView.getEmployee().getCode());
-						Client client = admin.getClient(clientNameField.getText(), clientLastNameField.getText());
+						Client client = admin.getClient(clientNameField.getText().trim(), clientLastNameField.getText().trim());
 						admin.addSale(getValue(), client.getCode(), order.getCode());
 						MainController.showAlert("Venta realizada", "INFORMACIÓN", AlertType.INFORMATION);
+						addressField.setText("");
+						clientNameField.setText("");
+						clientLastNameField.setText("");
+						codeProductField.setText("");
+						quantityProductField.setText("");
 						tableView.getItems().clear();
 						tableView.refresh();
 						products.clear();
@@ -152,9 +157,14 @@ public class SalesViewController {
 					MainController.showAlert("Debes ingresar la dirección", "ADVERTENCIA", AlertType.WARNING);
 			} else {
 				try {
-					Client client = admin.getClient(clientNameField.getText(), clientLastNameField.getText());
+					Client client = admin.getClient(clientNameField.getText().trim(), clientLastNameField.getText().trim());
 					admin.addSale(getValue(), client.getCode(), 0);
 					MainController.showAlert("Venta realizada", "INFORMACIÓN", AlertType.INFORMATION);
+					addressField.setText("");
+					clientNameField.setText("");
+					clientLastNameField.setText("");
+					codeProductField.setText("");
+					quantityProductField.setText("");
 					tableView.getItems().clear();
 					tableView.refresh();
 					products.clear();

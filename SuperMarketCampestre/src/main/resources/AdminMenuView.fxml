@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+
+
+<BorderPane fx:id="menuPane" prefHeight="800.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.AdminMenuViewController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+            <Menu mnemonicParsing="false" text="&lt;">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleComeBackMenu" text="Volver al menú inicio" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Empleado">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleEmployeeMenu" text="Gestionar empleados" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Contrato">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#handleContractMenu" text="Gestionar contratos" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Producto">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleProductMenu" text="Gestionar productos" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Proveedor">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#handleProviderMenu" text="Gestionar proveedores" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>

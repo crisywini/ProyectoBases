@@ -612,8 +612,6 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			return false;
 		}
 	}
-	
-	
 
 //	-----------------
 
@@ -625,7 +623,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				clientList.add(new Client(resultSet.getString(1), resultSet.getString(2)));
+				clientList.add(new Client(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -657,7 +655,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+				orderList.add(new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -673,7 +671,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+				orderList.add(new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -713,7 +711,6 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		}
 		return EmployeList;
 	}
-
 
 	@Override
 	public Product getProduct(int code) throws NonexistentEntityException {
@@ -790,7 +787,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 
 	public boolean isClient(String name, String lastName) {
 		try {
-			final String SQL = "SELECT * FROM Client WHERE nombre = ?  AND apellido = ?;";
+			final String SQL = "SELECT * FROM Cliente WHERE nombre = ?  AND apellido = ?;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			query.setString(1, name);
 			query.setString(2, lastName);
@@ -808,7 +805,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		if (!isClient(name, lastName))
 			throw new NonexistentEntityException("El Cliente: " + name + " no se encuentra registrado");
 		try {
-			final String SQL = "SELECT * FROM Client WHERE nombre = ?  AND apellido = ?;";
+			final String SQL = "SELECT * FROM Cliente WHERE nombre = ?  AND apellido = ?;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			query.setString(1, name);
 			query.setString(2, lastName);
@@ -838,6 +835,18 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
 		return paymentTypes;
+	}
+
+	@Override
+	public List<Employee> getEmployeeByPhoneNumber() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Order> getQuantityOrderByEmployee() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

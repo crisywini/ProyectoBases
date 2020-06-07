@@ -10,7 +10,6 @@ import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Contract;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PaymentType;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;

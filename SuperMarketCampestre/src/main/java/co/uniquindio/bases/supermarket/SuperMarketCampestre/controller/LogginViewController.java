@@ -57,8 +57,14 @@ public class LogginViewController {
 				userField.setText("");
 				passwordField.setText("");
 				mainController.closeStage();
+				int job = employee.getCode_job();
 				MainController.showAlert("Bienvenido: "+employee.getEmail(), "INFORMACIÓN", AlertType.INFORMATION);
-				loadAuxiliarMenu(employee);
+				if(job == 1) {
+					loadAdminMenu(employee);
+				}
+				if(job==2) {					
+					loadAuxiliarMenu(employee);
+				}
 			} catch (NonexistentEntityException e) {
 				MainController.showAlert(e.getMessage(), "ERROR", AlertType.ERROR);
 			}
@@ -69,6 +75,24 @@ public class LogginViewController {
 			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/AuxiliarMenuView.fxml"));
 			Parent parent = loader.load();
 			AuxiliarMenuViewController controller = loader.getController();
+			controller.setEmployee(employee);
+			controller.setLastView(this);
+			Scene scene = new Scene(parent);
+			Stage stage =new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Super Market Campestre");
+			controller.setStage(stage);
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void loadAdminMenu(Employee employee) {
+		try {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/AdminMenuView.fxml"));
+			Parent parent = loader.load();
+			AdminMenuViewController controller = loader.getController();
 			controller.setEmployee(employee);
 			controller.setLastView(this);
 			Scene scene = new Scene(parent);

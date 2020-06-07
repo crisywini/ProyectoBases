@@ -1,3 +1,7 @@
+/**
+ * Sample Skeleton for 'AdminMenuView.fxml' Controller Class
+ */
+
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.controller;
 
 import java.io.IOException;
@@ -13,7 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class AuxiliarMenuViewController {
+public class AdminMenuViewController {
 
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
@@ -23,63 +27,56 @@ public class AuxiliarMenuViewController {
 
     @FXML // fx:id="menuPane"
     private BorderPane menuPane; // Value injected by FXMLLoader
+    private LogginViewController lastView;
+    private Employee employee;
     private Stage stage;
 
     @FXML
-    void handleProductsMenu(ActionEvent event) {
+    void handleContractMenu(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleEmployeeMenu(ActionEvent event) {
+
+    }
+
+    @FXML
+    void handleProductMenu(ActionEvent event) {
     	loadProductView();
     }
 
     @FXML
-    void handleVentasMenu(ActionEvent event) {
-    	loadSalesView();
+    void handleProviderMenu(ActionEvent event) {
+
     }
     @FXML
-    void handleBackMenu(ActionEvent event) {
-    	stage.hide();
-    	lastView.openStage();
-    }
-    VBox salesView;
-    SalesViewController salesViewController;
-    VBox productView;
-    AuxiliarProductViewController productViewController;
-    
-    public void loadProductView() {
-    	if(productView==null) {
-    		try {
-    			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/AuxiliarProductView.fxml"));
-				productView = (VBox)loader.load();
-				productViewController = loader.getController();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    	}
-    	productViewController.setCurrentView(this);
-    	menuPane.setCenter(productView);
-    }
-    public void loadSalesView() {
-    	if(salesView==null) {
-    		try {
-    			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/SalesView.fxml"));
-				salesView = (VBox)loader.load();
-				salesViewController = loader.getController();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-    	}
-    	salesViewController.setLastView(this);
-    	menuPane.setCenter(salesView);
-    }
+    void handleComeBackMenu(ActionEvent event) {
 
+    }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     void initialize() {
-        assert menuPane != null : "fx:id=\"menuPane\" was not injected: check your FXML file 'AuxiliarMenuView.fxml'.";
+        assert menuPane != null : "fx:id=\"menuPane\" was not injected: check your FXML file 'AdminMenuView.fxml'.";
         loadProductView();
     }
-    private LogginViewController lastView;
-    private Employee employee;
-    public LogginViewController getLastView() {
+    VBox productView;
+    ProductAdminViewController productAdminViewController;
+    public void loadProductView() {
+    	if(productView==null) {
+    		try {
+    			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ProductAdminView.fxml"));
+				productView = (VBox)loader.load();
+				productAdminViewController = loader.getController();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    	productAdminViewController.setLastView(this);
+    	menuPane.setCenter(productView);
+    }
+
+	public LogginViewController getLastView() {
 		return lastView;
 	}
 
@@ -102,6 +99,6 @@ public class AuxiliarMenuViewController {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-	
     
 }
+
