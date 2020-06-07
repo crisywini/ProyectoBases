@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox alignment="CENTER" prefHeight="700.0" prefWidth="700.0" spacing="10.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.ProductAdminViewController">
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="700.0" spacing="10.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.ProductAdminViewController">
    <children>
       <HBox alignment="CENTER" prefHeight="51.0" prefWidth="700.0">
          <children>
@@ -80,5 +79,12 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
+      <HBox alignment="CENTER" prefHeight="42.0" prefWidth="700.0" spacing="20.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleRemoveButton" style="-fx-background-radius: 20;" text="Eliminar" />
+            <Button mnemonicParsing="false" onAction="#handleSelectButton" style="-fx-background-radius: 20;" text="Seleccionar" />
+            <Button mnemonicParsing="false" onAction="#handleUpdateButton" style="-fx-background-radius: 20;" text="Modificar" />
+         </children>
+      </HBox>
    </children>
 </VBox>

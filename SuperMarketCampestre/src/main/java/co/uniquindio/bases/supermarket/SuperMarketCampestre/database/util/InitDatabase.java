@@ -2,13 +2,12 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
 import java.sql.Connection;
 
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client_Service;
 
 //import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.*;
 
@@ -31,7 +30,7 @@ public class InitDatabase {
 		createAllTables();
 		a = new AdministratorDelegate();
 		addData();
-		
+		addProducts();
 //		Client client = new Client("Juan", "Salazar");
 //		Service service = new Service("Detalles del servicio recarga", "Recarga");
 //		Client_Service clientService = new Client_Service(1, 1);
@@ -184,15 +183,14 @@ public class InitDatabase {
 			a.addService("Bancolombia a la mano", "Bancolombia a la mano");
 			
 		} catch (EntityRepeatedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		for (int i = 1; i < 5; i++) {
-			a.addClientService(i, 1, connection);
+			a.addClientService(i, 1);
 		}
 		for (int i = 10; i < 15; i++) {
-			a.addClientService(i, 2, connection);
+			a.addClientService(i, 2);
 		}
 		
 		for (int i = 1; i < 5; i++) {
@@ -206,7 +204,6 @@ public class InitDatabase {
 			a.addJob("Auxiliar de caja");
 			a.addJob("Domicilio");
 		} catch (EntityRepeatedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -220,24 +217,37 @@ public class InitDatabase {
 			a.addEmployee("e7", "Ana", "Pulgarin", "ap@gmail.com", "Casa g", 1);
 			a.addEmployee("e8", "Camila", "Zapata", "cz@hotmail.com", "Casa h", 2);
 			a.addEmployee("e9", "Lola", "Guzman", "lg@gmail.com", "Casa i", 3);
-			a.addEmployee("e0", "Julian", "Lopez", "jl@gmail.com", "Casa j", 3);
+			a.addEmployee("e10", "Julian", "Lopez", "jl@gmail.com", "Casa j", 3);
 		} catch (EntityRepeatedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 		for (int i = 1; i < 10; i++) {
 			try {
-				a.addPhoneNumber(7375580+i, "ei");
+				a.addPhoneNumber(7375580+i, "e"+i);
 			} catch (EntityRepeatedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
-		
-		
+
+	}
+	public static void addProducts() {
+		try {
+			a.addProduct(20, "Leche Descremada", "Leche descremada de colanta", 3600);
+			a.addProduct(20, "Leche Deslactosada", "Bolsa de Leche deslactosada de Parmalat 35gm", 2600);
+			a.addProduct(50, "Huevos de oro", "Huevos de la finca del oro 12 huevos", 8000);
+			a.addProduct(40, "Arroz Diana", "Arroz diana de 25mg", 1200);
+			a.addProduct(30, "Salchicas zenú", "Paquete de 6 Salchicas Zenú", 7500);
+			a.addProduct(50, "Galletas integrales", "Galletas duz integrales 6 unidades", 4500);
+			a.addProduct(20, "Galletas saltinas", "Galletas saltinas pack 12", 4500);
+			a.addProduct(20, "Galletas Oreo", "Paquete de Galletas Oreo de 6", 1000);
+			a.addProduct(20, "Galletas minioreo", "Paquete de galletas minioreo", 2500);
+			a.addProduct(20, "Galletas Oreo", "Paquete de galletas Oreo de Vainilla de 4", 700);
+			a.addProduct(20, "Cerveza Club Colombia negra", "Pack 6 cervezas", 15000);
+			a.addProduct(20, "Cerveza Aguila", "Pack 6 Cervezas", 12500);
+
+		} catch (EntityRepeatedException e) {
+			e.printStackTrace();
+		}
 	}
 }

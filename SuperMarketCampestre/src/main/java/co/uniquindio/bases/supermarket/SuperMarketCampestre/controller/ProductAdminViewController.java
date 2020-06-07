@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.observables.ProductObservable;
@@ -60,49 +61,117 @@ public class ProductAdminViewController {
 	@FXML // fx:id="priceColumn"
 	private TableColumn<ProductObservable, String> priceColumn; // Value injected by FXMLLoader
 	private AdminMenuViewController lastView;
-	
 
 	@FXML
 	void handleAddProduct(ActionEvent event) {
-		if(isInputValid()) {
+		if (isInputValid()) {
 			try {
-				admin.addProduct(Integer.parseInt(quantityField.getText()), nameField.getText(), detailArea.getText(), Double.parseDouble(priceField.getText()));
+				admin.addProduct(Integer.parseInt(quantityField.getText()), nameField.getText(), detailArea.getText(),
+						Double.parseDouble(priceField.getText()));
+				Product product = admin.getProduct(nameField.getText(), detailArea.getText());
+				productData.add(new ProductObservable(product.getCode() + "", product.getQuantity() + "",
+						product.getName(), product.getDetails(), product.getPrice() + ""));
+				tableView.refresh();
+				MainController.showAlert("Producto agregado", "INFORMACIÓN", AlertType.INFORMATION);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (EntityRepeatedException e) {
 				MainController.showAlert(e.getMessage(), "ERROR", AlertType.ERROR);
+			} catch (NonexistentEntityException e) {
+				MainController.showAlert(e.getMessage(), "ERROR", AlertType.ERROR);
 			}
 		}
-
 	}
+
 	public boolean isInputValid() {
 		String errorMessage = "";
 		boolean isValid = false;
-		if(nameField.getText().isEmpty())
+		if (nameField.getText().isEmpty())
 			errorMessage += "Debes ingresar el nombre\n";
-		if(quantityField.getText().isEmpty())
-			errorMessage+="Debes ingresar la cantidad\n";
+		if (quantityField.getText().isEmpty())
+			errorMessage += "Debes ingresar la cantidad\n";
 		else
 			try {
 				Integer.parseInt(quantityField.getText());
 			} catch (Exception e) {
 				errorMessage += "La cantidad debe ser numérica\n";
 			}
-		if(priceField.getText().isEmpty())
+		if (priceField.getText().isEmpty())
 			errorMessage += "Debes ingresar el precio\n";
-		else 
+		else
 			try {
 				Double.parseDouble(priceField.getText());
 			} catch (Exception e) {
-				errorMessage+="El precio debe ser numérico\n";
+				errorMessage += "El precio debe ser numérico\n";
 			}
-		if(detailArea.getText().isEmpty())
+		if (detailArea.getText().isEmpty())
 			errorMessage += "Debes ingresar el detalle";
-		if(errorMessage.isEmpty())
+		if (errorMessage.isEmpty())
 			isValid = true;
 		else
 			MainController.showAlert(errorMessage, "ADVERTENCIA", AlertType.WARNING);
 		return isValid;
+	}
+
+	private ProductObservable productObservableSelected;
+
+	@FXML
+	void handleSelectButton(ActionEvent event) {
+		if (!tableView.getSelectionModel().isEmpty()) {
+			productObservableSelected = tableView.getSelectionModel().getSelectedItem();
+			MainController.showAlert("Producto: " + productObservableSelected.getName() + " seleccionado",
+					"INFORMACIÓN", AlertType.INFORMATION);
+			nameField.setText(productObservableSelected.getName().get());
+			quantityField.setText(productObservableSelected.getQuantity().get());
+			detailArea.setText(productObservableSelected.getDetails().get());
+			priceField.setText(productObservableSelected.getPrice().get());
+
+		} else {
+			MainController.showAlert("Debes seleccionar un producto", "ADVERTENCIA", AlertType.WARNING);
+		}
+	}
+
+	@FXML
+	void handleRemoveButton(ActionEvent event) {
+		if (!tableView.getSelectionModel().isEmpty()) {
+			productObservableSelected = tableView.getSelectionModel().getSelectedItem();
+			try {
+				admin.removeProduct(Integer.parseInt(productObservableSelected.getCode().get()));
+				MainController.showAlert("Producto: " + productObservableSelected.getName().get() + " eliminado",
+						"ADVERTENCIA", AlertType.WARNING);
+				iniTableView();
+				nameField.setText(productObservableSelected.getName().get());
+				quantityField.setText(productObservableSelected.getQuantity().get());
+				detailArea.setText(productObservableSelected.getDetails().get());
+				priceField.setText(productObservableSelected.getPrice().get());
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (NonexistentEntityException e) {
+				MainController.showAlert(e.getMessage(), "ERROR", AlertType.ERROR);
+			}
+
+		} else {
+			MainController.showAlert("Debes seleccionar un producto", "ADVERTENCIA", AlertType.WARNING);
+		}
+	}
+
+	@FXML
+	void handleUpdateButton(ActionEvent event) {
+
+		if (isInputValid()) {
+			Product product = new Product(Integer.parseInt(productObservableSelected.getCode().get()),
+					Integer.parseInt(quantityField.getText()),
+					nameField.getText(), detailArea.getText(),
+					Double.parseDouble(priceField.getText()));
+			admin.updateProduct(product);
+			iniTableView();
+			MainController.showAlert("Producto: " + product.getName() + " modificado", "INFORMACIÓN",
+					AlertType.INFORMATION);
+			nameField.setText("");
+			quantityField.setText("");
+			detailArea.setText("");
+			priceField.setText("");
+		}
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
@@ -150,5 +219,4 @@ public class ProductAdminViewController {
 		this.lastView = lastView;
 		iniTableView();
 	}
-
 }

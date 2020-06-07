@@ -52,7 +52,8 @@ public class AdminMenuViewController {
     }
     @FXML
     void handleComeBackMenu(ActionEvent event) {
-
+    	stage.hide();
+    	lastView.openStage();
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete

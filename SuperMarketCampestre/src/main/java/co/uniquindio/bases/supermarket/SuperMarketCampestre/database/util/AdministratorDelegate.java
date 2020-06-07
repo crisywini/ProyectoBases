@@ -1,6 +1,6 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
-import java.sql.Connection;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -337,7 +337,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 	}
 
 	@Override
-	public void addClientService(int code_client, int code_service, Connection connection) {
+	public void addClientService(int code_client, int code_service) {
 		Client_Service newClient_Service = new Client_Service();
 		newClient_Service.saveClientService(code_client, code_service, connection);
 	}
@@ -874,4 +874,25 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		return orderList;
 	}
 
+	@Override
+	public Product getProduct(String name, String details) throws NonexistentEntityException {
+		
+		if(!isProductRepeated(name, details))
+			throw new NonexistentEntityException("El producto: "+name+" no se encuentra registrado");
+		Product product = null;
+		try {
+			final String SQL = "SELECT * FROM Producto WHERE nombre = ? AND detalle = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, name);
+			query.setString(2, details);
+			ResultSet resultSet = query.executeQuery();
+			while(resultSet.next())
+				product = new Product(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5));
+			return product;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return product;
+	}
+	
 }

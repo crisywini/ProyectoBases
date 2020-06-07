@@ -1,6 +1,6 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
-import java.sql.Connection;
+
 import java.util.List;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
@@ -54,7 +54,7 @@ public interface AdministratorDelegateRemote {
 
 	void addService(String detail, String name) throws EntityRepeatedException;
 
-	void addClientService(int code_client, int code_service, Connection connection);
+	void addClientService(int code_client, int code_service);
 
 	
 	
@@ -69,6 +69,8 @@ public interface AdministratorDelegateRemote {
 	Product getProduct(int code) throws NonexistentEntityException;
 	Order getOrder(String address, String code) throws NonexistentEntityException;
 	Client getClient(String name, String lastName) throws NonexistentEntityException;
+	Product getProduct(String name, String details) throws NonexistentEntityException;
+
 
 	List<Contract> getAllContracts();
 	List<Employee> getAllEmployees();
