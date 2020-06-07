@@ -578,6 +578,41 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		return providerList;
 	}
 
+	@Override
+	public Employee loggin(String email, String id) throws NonexistentEntityException {
+		Employee employee =null;
+		if(!isEmployee(id, email))
+			throw new NonexistentEntityException("El empleado: "+email+" no se encuentra registrado");
+		try {
+			final String SQL = "SELECT * FROM Empleado WHERE email = ? AND cedula = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, email);
+			query.setString(2, id);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				employee = new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return employee;
+	}
+	public boolean isEmployee(String code, String email) {
+		try {
+			final String SQL = "SELECT * FROM Empleado WHERE cedula = ?  AND email = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, code);
+			query.setString(2, email);
+			ResultSet resultSet = query.executeQuery();
+			return resultSet.first();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			return false;
+		}
+	}
+	
+	
+
 //	-----------------
 
 	@Override
