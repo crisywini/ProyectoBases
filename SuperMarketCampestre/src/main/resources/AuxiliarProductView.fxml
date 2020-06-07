@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" opacity="0.5" prefHeight="600.0" prefWidth="700.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.AuxiliarProductViewController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="700.0">
+         <children>
+            <Label text="Productos" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="408.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
+         <children>
+            <TableView fx:id="tableView" prefHeight="408.0" prefWidth="635.0" HBox.hgrow="ALWAYS">
+              <columns>
+                <TableColumn fx:id="codeColumn" prefWidth="56.0" text="Código" />
+                <TableColumn fx:id="nameColumn" prefWidth="154.0" text="Nombre" />
+                  <TableColumn fx:id="detailColumn" prefWidth="75.0" text="Detalle" />
+                  <TableColumn fx:id="quantityColumn" prefWidth="75.0" text="Cantidad" />
+                  <TableColumn fx:id="priceColumn" prefWidth="75.0" text="Precio" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </HBox>
+   </children>
+</VBox>

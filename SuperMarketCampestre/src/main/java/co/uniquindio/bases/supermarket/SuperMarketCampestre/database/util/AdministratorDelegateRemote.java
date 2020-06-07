@@ -61,6 +61,7 @@ public interface AdministratorDelegateRemote {
 	boolean removeProduct(int code) throws NonexistentEntityException;
 
 	boolean removeProvider(int code) throws NonexistentEntityException;
+	Employee loggin(String email, String id)throws NonexistentEntityException;
 
 	List<Contract> getAllContracts();
 	List<Employee> getAllEmployees();

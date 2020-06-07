@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<HBox prefHeight="700.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.LogginViewController">
+   <children>
+      <Pane prefHeight="400.0" prefWidth="53.0" HBox.hgrow="ALWAYS">
+         <children>
+            <AnchorPane layoutX="39.0" layoutY="50.0" opacity="0.5" prefHeight="286.0" prefWidth="220.0" style="-fx-background-radius: 20px; -fx-background-color: #628f5b;">
+               <children>
+                  <TextField fx:id="userField" layoutX="12.0" layoutY="105.0" prefHeight="16.0" prefWidth="191.0" promptText="Ingresa tu Usuario" style="-fx-background-radius: 20px;" />
+                  <PasswordField fx:id="passwordField" layoutX="15.0" layoutY="187.0" prefHeight="16.0" prefWidth="191.0" promptText="Ingresa tu Contraseña" style="-fx-background-radius: 20px;" />
+                  <Button layoutX="116.0" layoutY="239.0" mnemonicParsing="false" onAction="#handleLogginButton" style="-fx-background-radius: 20px;" text="Ingresar" />
+                  <Label layoutX="32.0" layoutY="79.0" text="Usuario" />
+                  <Label layoutX="32.0" layoutY="159.0" text="Contraseña" />
+                  <Label layoutX="69.0" layoutY="29.0" text="Ingresar">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children></Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+         <children>
+            <ImageView fx:id="image" fitHeight="198.0" fitWidth="399.0" layoutX="85.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true" />
+         </children></Pane>
+   </children>
+</HBox>
