@@ -54,7 +54,7 @@ public class Service {
 			statement.setString(1, detail);
 			statement.setString(2, name);
 			statement.executeUpdate();
-			System.out.println("Se ha guardado el cliente: " + detail + " " + name);
+			System.out.println("Se ha guardado el servicio: " + detail + " " + name);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

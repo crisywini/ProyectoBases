@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 public class PhoneNumber {
 
-	private int number;
+	private long number;
 	private String code_employee;
 
 	public PhoneNumber() {
@@ -22,11 +22,11 @@ public class PhoneNumber {
 
 	}
 
-	public int getNumber() {
+	public long getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(long number) {
 		this.number = number;
 	}
 
@@ -38,11 +38,11 @@ public class PhoneNumber {
 		this.code_employee = code_employee;
 	}
 
-	public  void savePhone(int number, String code_employee, Connection connection) {
+	public  void savePhone(long number, String code_employee, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO Telefono(numero, empleado_cedula) values(?,?);");
-			statement.setInt(1, number);
+			statement.setLong(1, number);
 			statement.setString(2, code_employee);
 			statement.executeUpdate();
 			System.out.println("Se ha guardado el telefono: " + number + " " + code_employee);

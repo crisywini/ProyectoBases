@@ -75,20 +75,17 @@ public class Product {
 		this.code_provider = code_provider;
 	}
 
-	public void saveProduct(int quantity, String name, String details, double price, int code_proveedor,
-			Connection connection) {
+	public void saveProduct(int quantity, String name, String details, double price, Connection connection) {
 		try {
-			PreparedStatement statement = connection.prepareStatement(
-					"INSERT INTO Producto(cantidad, nombre, detalles, precio, code_proveedor) values(?,?,?,?,?);");
+			PreparedStatement statement = connection
+					.prepareStatement("INSERT INTO Producto(cantidad, nombre, detalles, precio) values(?,?,?,?,?);");
 			statement.setInt(1, quantity);
 			statement.setString(2, name);
 			statement.setString(3, details);
 			statement.setDouble(4, price);
-			statement.setInt(5, code_proveedor);
 
 			statement.executeUpdate();
-			System.out.println("Se ha guardado el Producto: " + quantity + " " + name + " " + details + " " + price
-					+ " " + code_proveedor);
+			System.out.println("Se ha guardado el Producto: " + quantity + " " + name + " " + details + " " + price);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

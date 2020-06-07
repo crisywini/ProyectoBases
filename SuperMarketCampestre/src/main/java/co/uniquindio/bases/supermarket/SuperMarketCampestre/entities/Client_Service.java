@@ -1,12 +1,12 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.entities;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.Conexion;
 
-public class Client_Service extends Conexion {
+public class Client_Service {
 
 	private int code_client;
 	private int code_service;
@@ -38,7 +38,7 @@ public class Client_Service extends Conexion {
 		this.code_service = code_service;
 	}
 
-	private void saveClientService(int code_client, int code_service, Connection connection) {
+	public void saveClientService(int code_client, int code_service, Connection connection) {
 		try {
 			PreparedStatement statement = connection
 					.prepareStatement("INSERT INTO Cliente_servicio(cliente_code, servicio_code) values(?,?);");
