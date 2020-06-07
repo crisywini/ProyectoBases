@@ -625,7 +625,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				clientList.add(new Client(resultSet.getString(1), resultSet.getString(2)));
+				clientList.add(new Client(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -657,7 +657,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+				orderList.add(new Order(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -673,7 +673,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+				orderList.add(new Order(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -838,6 +838,43 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
 		return paymentTypes;
+	}
+	
+	
+	
+//	ESTE ES EL QUE FALLA
+
+	@Override
+	public List<Employee> getEmployeeByPhoneNumber() {
+		List<Employee> EmployeList = new ArrayList<Employee>();
+		try {
+			final String SQL = "SELECT COUNT(t.empleado_cedula) as cantidad, e.nombre FROM Empleado e INNER JOIN Telefono t ON e.cedula = t.empleado_cedula;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				EmployeList.add(new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return EmployeList;
+	}
+
+	@Override
+	public List<Order> getQuantityOrderByEmployee() {
+		List<Order> orderList = new ArrayList<Order>();
+		try {
+			final String SQL = "SELECT COUNT(d.code), e.nombre FROM Empleado e INNER JOIN Domicilio d ON e.cedula = d.cedula_empleado GROUP BY e.nombre ORDER BY e.nombre DESC;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				orderList.add(new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return orderList;
 	}
 
 }
