@@ -18,8 +18,8 @@ public class Provider {
 	
 	}
 	
-	public Provider(String email, String name, String address, String phone) {
-
+	public Provider(int code,String email, String name, String address, String phone) {
+		this.code = code;
 		this.email = email;
 		this.name = name;
 		this.address = address;
@@ -65,6 +65,13 @@ public class Provider {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Provider [code=" + code + ", email=" + email + ", name=" + name + ", address=" + address + ", phone="
+				+ phone + "]";
 	}
 
 	public void saveProvider(String email, String name, String address, String phone, Connection connection) {

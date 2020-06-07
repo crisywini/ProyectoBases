@@ -21,8 +21,8 @@ public class Contract {
 
 	}
 
-	public Contract(double salary, String startDate, String endDate, int code_type, String code_employee, int code_job) {
-
+	public Contract(int code, double salary, String startDate, String endDate, int code_type, String code_employee, int code_job) {
+		this.code = code;
 		this.salary = salary;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -86,6 +86,13 @@ public class Contract {
 
 	public void setCode_job(int code_job) {
 		this.code_job = code_job;
+	}
+	
+
+	@Override
+	public String toString() {
+		return "Contract [code=" + code + ", salary=" + salary + ", startDate=" + startDate + ", endDate=" + endDate
+				+ ", code_type=" + code_type + ", code_employee=" + code_employee + ", code_job=" + code_job + "]";
 	}
 
 	public void saveContract(double salary, String startDate, String endDate, int code_type, String code_employee,

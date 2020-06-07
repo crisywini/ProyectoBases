@@ -11,19 +11,17 @@ public class Product {
 	private String name;
 	private String details;
 	private double price;
-	private int code_provider;
 
 	public Product() {
 
 	}
 
-	public Product(int quantity, String name, String details, double price, int code_provider) {
-
+	public Product(int code ,int quantity, String name, String details, double price) {
+		this.code = code;
 		this.quantity = quantity;
 		this.name = name;
 		this.details = details;
 		this.price = price;
-		this.code_provider = code_provider;
 
 	}
 
@@ -66,19 +64,19 @@ public class Product {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
 
-	public int getCode_provider() {
-		return code_provider;
-	}
 
-	public void setCode_provider(int code_provider) {
-		this.code_provider = code_provider;
+	@Override
+	public String toString() {
+		return "Product [code=" + code + ", quantity=" + quantity + ", name=" + name + ", details=" + details
+				+ ", price=" + price + "]";
 	}
 
 	public void saveProduct(int quantity, String name, String details, double price, Connection connection) {
 		try {
 			PreparedStatement statement = connection
-					.prepareStatement("INSERT INTO Producto(cantidad, nombre, detalles, precio) values(?,?,?,?,?);");
+					.prepareStatement("INSERT INTO Producto(cantidad, nombre, detalle, precio) values(?,?,?,?);");
 			statement.setInt(1, quantity);
 			statement.setString(2, name);
 			statement.setString(3, details);

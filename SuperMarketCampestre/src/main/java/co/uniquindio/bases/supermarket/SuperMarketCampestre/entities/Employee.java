@@ -76,6 +76,13 @@ public class Employee {
 	public void setCode_job(int code_job) {
 		this.code_job = code_job;
 	}
+	
+
+	@Override
+	public String toString() {
+		return "Employee [code=" + code + ", name=" + name + ", last_name=" + last_name + ", email=" + email
+				+ ", address=" + address + ", code_job=" + code_job + "]";
+	}
 
 	public void saveEmployee(String code, String name, String last_name, String email, String address, int code_job, Connection connection) {
 		try {

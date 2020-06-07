@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
 
 /**
@@ -36,7 +37,7 @@ public class AppTest {
 	@Test
 	public void addContractTest() {
 		try {
-			admin.addContract(900000, "2017-06-03", "2030-06-03", 1, "03", 1);
+			admin.addContract(900000, "2009-06-03", "2010-06-03", 1, "03", 1);
 			assertTrue(true);
 		} catch (EntityRepeatedException e) {
 			System.err.println(e.getMessage());
@@ -92,7 +93,7 @@ public class AppTest {
 	@Test
 	public void addProviderTest() {
 		try {
-			admin.addProvider("prove2@mail.com", "ELVIVE", "por la 14", "3156468897");
+			admin.addProvider("prove3@mail.com", "ELVIVE", "por la 14", "3156468897");
 			assertTrue(true);
 		} catch (EntityRepeatedException e) {
 			System.err.println(e.getMessage());
@@ -108,5 +109,59 @@ public class AppTest {
 			System.err.println(e.getMessage());
 			assertTrue(true);
 		}
+	}
+	@Test
+	public void addProductTest() {
+		try {
+			admin.addProduct(50, "Leche deslactosada", "Leche deslactosada de parmalat", 56000);
+			assertTrue(true);
+		} catch (EntityRepeatedException e) {
+			System.err.println(e.getMessage());
+			assertTrue(true);
+		}
+	}
+	@Test
+	public void removeContractTest() {
+		try {
+			admin.removeContract(2);
+			assertTrue(true);
+		} catch (NonexistentEntityException e) {
+			System.err.println(e.getMessage());
+			assertTrue(true);
+		}
+	}
+	@Test
+	public void removeEmployeeTest() {
+		try {
+			admin.removeEmployee("03");
+			assertTrue(true);
+		} catch (NonexistentEntityException e) {
+			System.err.println(e.getMessage());
+			assertTrue(true);
+		}
+	}
+	@Test
+	public void removeProductTest() {
+		try {
+			admin.removeProduct(1);
+			assertTrue(true);
+		} catch (NonexistentEntityException e) {
+			System.err.println(e.getMessage());
+			assertTrue(true);
+		}
+	}
+	@Test
+	public void removeProviderTest() {
+		try {
+			admin.removeProvider(1);
+			assertTrue(true);
+		} catch (NonexistentEntityException e) {
+			System.err.println(e.getMessage());
+			assertTrue(true);
+		}
+	}
+	@Test
+	public void getContractListTest() {
+		admin.getAllProviders();
 	}
 }
