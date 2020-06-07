@@ -580,9 +580,9 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 
 	@Override
 	public Employee loggin(String email, String id) throws NonexistentEntityException {
-		Employee employee =null;
-		if(!isEmployee(id, email))
-			throw new NonexistentEntityException("El empleado: "+email+" no se encuentra registrado");
+		Employee employee = null;
+		if (!isEmployee(id, email))
+			throw new NonexistentEntityException("El empleado: " + email + " no se encuentra registrado");
 		try {
 			final String SQL = "SELECT * FROM Empleado WHERE email = ? AND cedula = ?;";
 			PreparedStatement query = connection.prepareStatement(SQL);
@@ -590,13 +590,15 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			query.setString(2, id);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				employee = new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
+				employee = new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
 		return employee;
 	}
+
 	public boolean isEmployee(String code, String email) {
 		try {
 			final String SQL = "SELECT * FROM Empleado WHERE cedula = ?  AND email = ?;";
@@ -710,6 +712,132 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
 		return EmployeList;
+	}
+
+
+	@Override
+	public Product getProduct(int code) throws NonexistentEntityException {
+		if (!isProduct(code))
+			throw new NonexistentEntityException("El producto: " + code + " no se encuentra registrado");
+		Product product = null;
+		try {
+			final String SQL = "SELECT * FROM Producto WHERE code = ? ;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setInt(1, code);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				product = new Product(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getDouble(5));
+			}
+			return product;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return product;
+	}
+
+	@Override
+	public Order getOrder(String address, String code) throws NonexistentEntityException {
+		if (!isOrder(address, code))
+			throw new NonexistentEntityException(
+					"El domicilio: " + address + ", " + code + " no se encuentra registrado");
+		Order order = null;
+		try {
+			final String SQL = "SELECT * FROM Domicilio WHERE direccion = ? AND cedula_empleado = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, address);
+			query.setString(2, code);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				order = new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+			}
+			return order;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return order;
+	}
+
+	public boolean isOrder(String address, String codeEmployee) {
+		try {
+			final String SQL = "SELECT * FROM Domicilio WHERE direccion = ? AND cedula_empleado = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, address);
+			query.setString(2, codeEmployee);
+			ResultSet resultSet = query.executeQuery();
+			return resultSet.first();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			return false;
+		}
+	}
+
+	@Override
+	public void updateProduct(Product product) {
+		try {
+			final String SQL = "UPDATE Producto SET cantidad = " + product.getQuantity() + ", nombre = '"
+					+ product.getName() + "', detalle = '" + product.getDetails() + "', precio = " + product.getPrice()
+					+ " WHERE code = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setInt(1, product.getCode());
+			int rows = query.executeUpdate();
+			System.out.println("Filas afectadas: " + rows);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+
+	}
+
+	public boolean isClient(String name, String lastName) {
+		try {
+			final String SQL = "SELECT * FROM Client WHERE nombre = ?  AND apellido = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, name);
+			query.setString(2, lastName);
+			ResultSet resultSet = query.executeQuery();
+			return resultSet.last();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			return false;
+		}
+	}
+
+	@Override
+	public Client getClient(String name, String lastName) throws NonexistentEntityException {
+		Client client = null;
+		if (!isClient(name, lastName))
+			throw new NonexistentEntityException("El Cliente: " + name + " no se encuentra registrado");
+		try {
+			final String SQL = "SELECT * FROM Client WHERE nombre = ?  AND apellido = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, name);
+			query.setString(2, lastName);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				client = new Client(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+			}
+			return client;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return client;
+	}
+
+	@Override
+	public List<PaymentType> getAllPaymentType() {
+		List<PaymentType> paymentTypes = new ArrayList<PaymentType>();
+		try {
+			final String SQL = "SELECT * FROM TipoPago;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				PaymentType pay = new PaymentType(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3));
+				paymentTypes.add(pay);
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return paymentTypes;
 	}
 
 }

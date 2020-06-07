@@ -7,6 +7,7 @@ import org.junit.Test;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 
 /**
  * Unit test for simple App.
@@ -125,6 +126,8 @@ public class AppTest {
 	}
 
 //	@Test
+
+	@Test
 	public void removeContractTest() {
 		try {
 			admin.removeContract(2);
@@ -136,6 +139,8 @@ public class AppTest {
 	}
 
 //	@Test
+
+	@Test
 	public void removeEmployeeTest() {
 		try {
 			admin.removeEmployee("03");
@@ -147,6 +152,8 @@ public class AppTest {
 	}
 
 //	@Test
+
+	@Test
 	public void removeProductTest() {
 		try {
 			admin.removeProduct(1);
@@ -158,6 +165,8 @@ public class AppTest {
 	}
 
 //	@Test
+
+	@Test
 	public void removeProviderTest() {
 		try {
 			admin.removeProvider(1);
@@ -166,6 +175,13 @@ public class AppTest {
 			System.err.println(e.getMessage());
 			assertTrue(true);
 		}
+	}
+
+	@Test
+	public void updateProductTest() {
+		Product product = new Product(16, 6, "Leche de cerdo", " de la finca de don Agustin", 7500);
+		admin.updateProduct(product);
+		assertTrue(true);
 	}
 
 	@Test
