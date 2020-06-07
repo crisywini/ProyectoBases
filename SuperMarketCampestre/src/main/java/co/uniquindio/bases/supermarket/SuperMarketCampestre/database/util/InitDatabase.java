@@ -6,6 +6,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client_Service;
+
 //import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.*;
 
 public class InitDatabase {
@@ -20,10 +24,13 @@ public class InitDatabase {
 	static final String USER = "root";
 	static final String PASSWORD = "root";
 	private static Connection connection;
-
+	private static AdministratorDelegate a;
+	
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
+		a = new AdministratorDelegate();
+		addData();
 		
 //		Client client = new Client("Juan", "Salazar");
 //		Service service = new Service("Detalles del servicio recarga", "Recarga");
@@ -157,5 +164,80 @@ public class InitDatabase {
 		 *  ahora si organizan rutas para los empleados podrían tener 
 		 *  una tabla similar a domicilio pero sin dirección ni telefono.
 		 */
+	}
+	
+	public static void addData () {
+		
+		for (int i = 0; i < 8; i++) {
+			a.addClient("Carlos"+i, "Martinez"+i);
+		}		
+		for (int i = 0; i < 8; i++) {
+			a.addClient("Maria"+i, "Cortez"+i);
+		}
+		for (int i = 0; i < 8; i++) {
+			a.addClient("Gabriel"+i, "Salazar"+i);
+		}
+		
+		try {
+			a.addService("Recarga", "Recarga");
+			a.addService("Pago de recibos", "Pago de recibos");
+			a.addService("Bancolombia a la mano", "Bancolombia a la mano");
+			
+		} catch (EntityRepeatedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (int i = 1; i < 5; i++) {
+			a.addClientService(i, 1, connection);
+		}
+		for (int i = 10; i < 15; i++) {
+			a.addClientService(i, 2, connection);
+		}
+		
+		for (int i = 1; i < 5; i++) {
+			a.addInvoiceService("Por la "+i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 1);
+		}
+		for (int i = 8; i < 18; i++) {
+			a.addInvoiceService("Por la "+i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 2);
+		}
+		try {
+			a.addJob("Administrador");
+			a.addJob("Auxiliar de caja");
+			a.addJob("Domicilio");
+		} catch (EntityRepeatedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		try {
+			a.addEmployee("e1", "Carlos", "Martin", "cm@gmail.com", "Casa a", 1);
+			a.addEmployee("e2", "Andres", "Castrillon", "ac@hotmail.com", "Casa b", 2);
+			a.addEmployee("e3", "Marta", "Marin", "mm@gmail.com", "Casa c", 3);
+			a.addEmployee("e4", "Cecilia", "Grajales", "cg@hotmail.com", "Casa d", 1);
+			a.addEmployee("e5", "Sandra", "Castano", "sc@gmail.com", "Casa e", 2);
+			a.addEmployee("e6", "Mauricio", "Saavedra", "ms@hotmail.com", "Casa f", 3);
+			a.addEmployee("e7", "Ana", "Pulgarin", "ap@gmail.com", "Casa g", 1);
+			a.addEmployee("e8", "Camila", "Zapata", "cz@hotmail.com", "Casa h", 2);
+			a.addEmployee("e9", "Lola", "Guzman", "lg@gmail.com", "Casa i", 3);
+			a.addEmployee("e0", "Julian", "Lopez", "jl@gmail.com", "Casa j", 3);
+		} catch (EntityRepeatedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (int i = 1; i < 10; i++) {
+			try {
+				a.addPhoneNumber(7375580+i, "ei");
+			} catch (EntityRepeatedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		
+		
+		
 	}
 }
