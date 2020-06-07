@@ -5,8 +5,11 @@ import java.util.List;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Contract;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
 
@@ -70,4 +73,19 @@ public interface AdministratorDelegateRemote {
 	
 	List<Product> getProductsWithTheHighestPrice();
 	List<Provider> getProvidersGmail();
+
+	List<Client> getClientNameDesc();
+	
+//	nombre de los cargos con la cantidad de empleados que estan en él
+	List<Job> getNameJobQuantityEmployees();
+//	Cantidad de domicilios que se han hecho a una direccion
+	List<Order> getQuantityOrderByAddress();
+//	direccion de los 5 domicilios mas caros
+	List<Order> get5OrderByCost();
+//	Cuantos contratos tienen el mismo tipo de cargo (muestra el cargo)
+	List<Job> getContractByJob();
+//	nombre del empleado que más ventas realizo
+	List<Employee> getEmployeeBySale();
+//	
+	
 }

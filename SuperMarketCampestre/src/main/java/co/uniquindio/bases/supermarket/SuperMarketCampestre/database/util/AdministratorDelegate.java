@@ -479,11 +479,12 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-//				System.out.println(
-//						resultSet.getString(1) + ", " + resultSet.getString(2) + ", " + resultSet.getString(3));
+				// System.out.println(
+				// resultSet.getString(1) + ", " + resultSet.getString(2) + ", " +
+				// resultSet.getString(3));
 				contractList.add(new Contract(resultSet.getInt(1), resultSet.getDouble(2), resultSet.getString(3),
 						resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6), resultSet.getInt(7)));
-//				System.out.println(contractList);
+				// System.out.println(contractList);
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -576,5 +577,104 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		}
 		return providerList;
 	}
-	
+
+//	-----------------
+
+	@Override
+	public List<Client> getClientNameDesc() {
+		List<Client> clientList = new ArrayList<Client>();
+		try {
+			final String SQL = "SELECT * FROM Cliente ORDER BY nombre DESC;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				clientList.add(new Client(resultSet.getString(1), resultSet.getString(2)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return clientList;
+	}
+
+	@Override
+	public List<Job> getNameJobQuantityEmployees() {
+		List<Job> jobList = new ArrayList<Job>();
+		try {
+			final String SQL = "SELECT COUNT(e.cedula) as Cantidad, c.nombre FROM Cargo c INNER JOIN Empleado e ON e.code_cargo = c.code GROUP BY c.nombre;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				jobList.add(new Job(resultSet.getString(1)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return jobList;
+	}
+
+	@Override
+	public List<Order> getQuantityOrderByAddress() {
+		List<Order> orderList = new ArrayList<Order>();
+		try {
+			final String SQL = "SELECT COUNT(v.code) as Cantidad, d.direccion FROM Domicilio d INNER JOIN Venta v ON v.code_domicilio = d.code GROUP BY d.direccion;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return orderList;
+	}
+
+	@Override
+	public List<Order> get5OrderByCost() {
+		List<Order> orderList = new ArrayList<Order>();
+		try {
+			final String SQL = "SELECT v.costo_total FROM Domicilio d INNER JOIN Venta v ON d.code = v.code_domicilio ORDER BY v.costo_total LIMIT 5;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				orderList.add(new Order(resultSet.getString(1), resultSet.getString(2)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return orderList;
+	}
+
+	@Override
+	public List<Job> getContractByJob() {
+		List<Job> contractList = new ArrayList<Job>();
+		try {
+			final String SQL = "SELECT COUNT(c.code) as cantidad, g.nombre FROM Contrato c INNER JOIN Cargo g ON c.code_cargo = g.code GROUP BY g.nombre;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				contractList.add(new Job(resultSet.getString(1)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return contractList;
+	}
+
+	@Override
+	public List<Employee> getEmployeeBySale() {
+		List<Employee> EmployeList = new ArrayList<Employee>();
+		try {
+			final String SQL = "SELECT e.nombre FROM Empleado e INNER JOIN Venta v ON e.cedula = v.code_cliente ORDER BY e.nombre DESC LIMIT 1;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next()) {
+				EmployeList.add(new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6)));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return EmployeList;
+	}
+
 }

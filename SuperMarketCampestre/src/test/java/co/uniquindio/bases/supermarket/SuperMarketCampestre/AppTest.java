@@ -90,6 +90,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addProviderTest() {
 		try {
@@ -100,6 +101,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addServiceTest() {
 		try {
@@ -110,6 +112,7 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void addProductTest() {
 		try {
@@ -120,7 +123,8 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
-	@Test
+
+//	@Test
 	public void removeContractTest() {
 		try {
 			admin.removeContract(2);
@@ -130,7 +134,8 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
-	@Test
+
+//	@Test
 	public void removeEmployeeTest() {
 		try {
 			admin.removeEmployee("03");
@@ -140,7 +145,8 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
-	@Test
+
+//	@Test
 	public void removeProductTest() {
 		try {
 			admin.removeProduct(1);
@@ -150,7 +156,8 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
-	@Test
+
+//	@Test
 	public void removeProviderTest() {
 		try {
 			admin.removeProvider(1);
@@ -160,8 +167,42 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
+
 	@Test
 	public void getContractListTest() {
 		admin.getProvidersGmail();
 	}
+
+//	-----------------------
+
+	@Test
+	public void getClientOrder() {
+		admin.getClientNameDesc();
+	}
+
+	@Test
+	public void getNameJobQuantityEmployees() {
+		admin.getNameJobQuantityEmployees();
+	}
+
+	@Test
+	public void getQuantityOrderByAddress() {
+		admin.getQuantityOrderByAddress();
+	}
+
+	@Test
+	public void get5OrderByCost() {
+		admin.get5OrderByCost();
+	}
+	
+	@Test
+	public void getContractByJob() {
+		admin.getContractByJob();
+	}
+
+	@Test
+	public void getEmployeeBySale() {
+		admin.getEmployeeBySale();
+	}
+	
 }

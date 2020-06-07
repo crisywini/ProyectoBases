@@ -65,6 +65,11 @@ public class Client{
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Client [code=" + code + ", name=" + name + ", lastName=" + lastName + "]";
+	}
+
 	public void saveClient(String name, String lastName, Connection connection) {
 		try {
 			PreparedStatement statement = connection
