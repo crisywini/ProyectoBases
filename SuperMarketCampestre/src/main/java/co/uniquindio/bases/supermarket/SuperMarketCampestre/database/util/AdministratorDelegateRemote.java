@@ -78,9 +78,10 @@ public interface AdministratorDelegateRemote {
 	List<Provider> getAllProviders();
 	
 	List<PaymentType> getAllPaymentType();
-	
+	List<Job> getAllJobs();
 	void updateProduct(Product product);
 	void updatePrivider(Provider provider);
+	void updateEmployee(Employee employee);
 	
 	List<Product> getProductsWithTheHighestPrice();
 	List<Provider> getProvidersGmail();

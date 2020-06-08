@@ -7,6 +7,7 @@ import org.junit.Test;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
 
@@ -193,6 +194,12 @@ public class AppTest {
 	public void updateProvider() {
 //		Provider provider = new Provider(1, "Colanta@gmail.com", "Colanta", "", phone)
 		admin.updatePrivider(new Provider());
+	}
+	@Test
+	public void updateEmployee() {
+		Employee employee = new Employee("e1", "Maria", "Martin", "mma@gmail.com", "casa78", 1);
+		admin.updateEmployee(employee);
+		assertTrue(true);
 	}
 
 //	-----------------------

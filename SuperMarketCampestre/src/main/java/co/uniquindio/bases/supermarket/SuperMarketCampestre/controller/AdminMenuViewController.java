@@ -19,63 +19,98 @@ import javafx.stage.Stage;
 
 public class AdminMenuViewController {
 
-    @FXML // ResourceBundle that was given to the FXMLLoader
-    private ResourceBundle resources;
+	@FXML // ResourceBundle that was given to the FXMLLoader
+	private ResourceBundle resources;
 
-    @FXML // URL location of the FXML file that was given to the FXMLLoader
-    private URL location;
+	@FXML // URL location of the FXML file that was given to the FXMLLoader
+	private URL location;
 
-    @FXML // fx:id="menuPane"
-    private BorderPane menuPane; // Value injected by FXMLLoader
-    private LogginViewController lastView;
-    private Employee employee;
-    private Stage stage;
+	@FXML // fx:id="menuPane"
+	private BorderPane menuPane; // Value injected by FXMLLoader
+	private LogginViewController lastView;
+	private Employee employee;
+	private Stage stage;
 
-    @FXML
-    void handleContractMenu(ActionEvent event) {
+	@FXML
+	void handleContractMenu(ActionEvent event) {
 
-    }
+	}
 
-    @FXML
-    void handleEmployeeMenu(ActionEvent event) {
+	@FXML
+	void handleEmployeeMenu(ActionEvent event) {
+		loadEmployee();
+	}
 
-    }
+	@FXML
+	void handleProductMenu(ActionEvent event) {
+		loadProductView();
+	}
 
-    @FXML
-    void handleProductMenu(ActionEvent event) {
-    	loadProductView();
-    }
+	@FXML
+	void handleProviderMenu(ActionEvent event) {
+		loadProviderView();
+	}
 
-    @FXML
-    void handleProviderMenu(ActionEvent event) {
+	@FXML
+	void handleComeBackMenu(ActionEvent event) {
+		stage.hide();
+		lastView.openStage();
+	}
 
-    }
-    @FXML
-    void handleComeBackMenu(ActionEvent event) {
-    	stage.hide();
-    	lastView.openStage();
-    }
+	@FXML // This method is called by the FXMLLoader when initialization is complete
+	void initialize() {
+		assert menuPane != null : "fx:id=\"menuPane\" was not injected: check your FXML file 'AdminMenuView.fxml'.";
+		loadProductView();
+	}
 
-    @FXML // This method is called by the FXMLLoader when initialization is complete
-    void initialize() {
-        assert menuPane != null : "fx:id=\"menuPane\" was not injected: check your FXML file 'AdminMenuView.fxml'.";
-        loadProductView();
-    }
-    VBox productView;
-    ProductAdminViewController productAdminViewController;
-    public void loadProductView() {
-    	if(productView==null) {
-    		try {
-    			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ProductAdminView.fxml"));
-				productView = (VBox)loader.load();
+	VBox productView;
+	ProductAdminViewController productAdminViewController;
+	VBox providerView;
+	ProviderAdminViewController providerViewController;
+	VBox employeeView;
+	EmployeeAdminViewController employeeViewController;
+
+	public void loadProductView() {
+		if (productView == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ProductAdminView.fxml"));
+				productView = (VBox) loader.load();
 				productAdminViewController = loader.getController();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-    	}
-    	productAdminViewController.setLastView(this);
-    	menuPane.setCenter(productView);
-    }
+		}
+		productAdminViewController.setLastView(this);
+		menuPane.setCenter(productView);
+	}
+	public void loadEmployee() {
+		if (employeeView == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("/EmployeeAdminView.fxml"));
+				employeeView = (VBox) loader.load();
+				employeeViewController = loader.getController();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		employeeViewController.setLastView(this);
+		menuPane.setCenter(productView);
+	}
+
+	public void loadProviderView() {
+		if (providerView == null) {
+			FXMLLoader loader = new FXMLLoader(Main.class.getResource("/ProviderAdminView.fxml"));
+			try {
+				providerView = (VBox) loader.load();
+				providerViewController = loader.getController();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		providerViewController.setLastView(this);
+		menuPane.setCenter(providerView);
+	}
 
 	public LogginViewController getLastView() {
 		return lastView;
@@ -100,6 +135,5 @@ public class AdminMenuViewController {
 	public void setStage(Stage stage) {
 		this.stage = stage;
 	}
-    
-}
 
+}

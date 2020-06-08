@@ -638,7 +638,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				jobList.add(new Job(resultSet.getString(1)));
+				jobList.add(new Job(resultSet.getInt(1), resultSet.getString(2)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -686,7 +686,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				contractList.add(new Job(resultSet.getString(1)));
+				contractList.add(new Job(resultSet.getInt(1), resultSet.getString(2)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -917,15 +917,45 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 	public void updatePrivider(Provider provider) {
 		try {
 			final String SQL = "UPDATE Proveedor SET email = " + provider.getEmail() + ", nombre = '"
-					+ provider.getName() + "', direccion = '" + provider.getAddress()+ "', telefono = " + provider.getPhone()
-					+ " WHERE code = ?;";
+					+ provider.getName() + "', direccion = '" + provider.getAddress() + "', telefono = "
+					+ provider.getPhone() + " WHERE code = ?;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			query.setInt(1, provider.getCode());
 			int rows = query.executeUpdate();
 			System.out.println("Filas afectadas: " + rows);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
-		}		
+		}
 	}
 
+	@Override
+	public List<Job> getAllJobs() {
+		List<Job> jobs = new ArrayList<Job>();
+		try {
+			final String SQL = "SELECT * FROM Cargo;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next())
+				jobs.add(new Job(resultSet.getInt(1), resultSet.getString(2)));
+			return jobs;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return jobs;
+	}
+
+	@Override
+	public void updateEmployee(Employee employee) {
+		try {
+			final String SQL = "UPDATE Empleado SET  nombre = '" + employee.getName() + "', apellido = '"
+					+ employee.getLast_name() + "', email = '" + employee.getEmail() + "', direccion='"
+					+ employee.getAddress() + "' WHERE cedula = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, employee.getCode());
+			int rows = query.executeUpdate();
+			System.out.println("Filas afectadas: " + rows);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+	}
 }

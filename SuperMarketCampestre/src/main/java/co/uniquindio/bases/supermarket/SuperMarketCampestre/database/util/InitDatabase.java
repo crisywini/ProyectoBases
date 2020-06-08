@@ -29,8 +29,9 @@ public class InitDatabase {
 		createDatabase();
 		createAllTables();
 		a = new AdministratorDelegate();
-		addData();
-		addProducts();
+		addProviders();
+//		addData();
+//		addProducts();
 //		Client client = new Client("Juan", "Salazar");
 //		Service service = new Service("Detalles del servicio recarga", "Recarga");
 //		Client_Service clientService = new Client_Service(1, 1);
@@ -245,6 +246,20 @@ public class InitDatabase {
 			a.addProduct(20, "Galletas Oreo", "Paquete de galletas Oreo de Vainilla de 4", 700);
 			a.addProduct(20, "Cerveza Club Colombia negra", "Pack 6 cervezas", 15000);
 			a.addProduct(20, "Cerveza Aguila", "Pack 6 Cervezas", 12500);
+
+		} catch (EntityRepeatedException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void addProviders() {
+		try {
+			a.addProvider("colanta@hotmail.com", "Colanta", "Fabrica industrial de Medellín", "764594");
+			a.addProvider("colombina@gmail.com", "Colombina", "Fabrica industrial de Medellín", "7645949");
+			a.addProvider("huevosoro@gmail.com", "Huevos Oro", "Finca de Huevos Oro", "3146567798");
+			a.addProvider("Zenú@hotmail.com", "Zenú", "Fabrica industrial de Medellín", "76459498");
+			a.addProvider("aguilacerve@hotmail.com", "Cerveza Águila", "Licorera de Medellín", "5764594");
+			a.addProvider("oreo@oreomail.com", "Oreo", "Fabrica de Oreos", "4564654456");
+			a.addProvider("ArrozDiana@hotmail.com", "Arroz Diana", "Fabrica industrial de Medellín", "46764594");
 
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();

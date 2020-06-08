@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 
 import java.sql.SQLException;
 
-
 public class Job {
 
 	public int code;
@@ -15,8 +14,8 @@ public class Job {
 
 	}
 
-	public Job(String name) {
-
+	public Job(int code, String name) {
+		this.code = code;
 		this.name = name.toUpperCase();
 	}
 
@@ -47,4 +46,10 @@ public class Job {
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
+
 }

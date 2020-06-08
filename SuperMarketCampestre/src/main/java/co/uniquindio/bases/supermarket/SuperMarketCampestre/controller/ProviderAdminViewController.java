@@ -102,7 +102,7 @@ public class ProviderAdminViewController {
 			errorMessage += "Debes ingresar el número de teléfono\n";
 		else
 			try {
-				Integer.parseInt(phoneField.getText());
+				Long.parseLong(phoneField.getText());
 			} catch (Exception e) {
 				errorMessage += "El teléfono debe tener solo números";
 			}
@@ -156,7 +156,14 @@ public class ProviderAdminViewController {
 		if (isInputValid()) {
 			Provider provider = new Provider(Integer.parseInt(providerSelected.getCode().get()), emailField.getText(),
 					nameField.getText(), addressField.getText(), phoneField.getText());
-			
+			admin.updatePrivider(provider);
+			MainController.showAlert("Se ha actualizado el proveedor: " + provider.getName(), "INFORMACIÓN",
+					AlertType.INFORMATION);
+			initTableView();
+			emailField.setText("");
+			nameField.setText("");
+			addressField.setText("");
+			phoneField.setText("");
 		}
 	}
 
@@ -203,5 +210,4 @@ public class ProviderAdminViewController {
 		this.lastView = lastView;
 		initTableView();
 	}
-
 }

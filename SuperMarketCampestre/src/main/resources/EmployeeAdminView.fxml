@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox alignment="CENTER" prefHeight="700.0" prefWidth="700.0" spacing="20.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="co.uniquindio.bases.supermarket.SuperMarketCampestre.controller.EmployeeAdminViewController">
+   <children>
+      <HBox alignment="CENTER" prefHeight="54.0" prefWidth="700.0">
+         <children>
+            <Label text="Empleado" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="226.0" prefWidth="700.0">
+         <children>
+            <GridPane prefHeight="226.0" prefWidth="420.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="275.0" minWidth="10.0" prefWidth="208.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="357.0" minWidth="10.0" prefWidth="357.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Cédula" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                     <children>
+                        <Label text="Nombre" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                     <children>
+                        <Label text="Apellido" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                     <children>
+                        <Label text="Correo electrónico" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                     <children>
+                        <Label text="Dirección" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+                     <children>
+                        <Label text="Cargo" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#handleAddEmployeeButton" style="-fx-background-radius: 20;" text="Agregar empleado" />
+                     </children>
+                  </HBox>
+                  <TextField fx:id="idEmployeeField" promptText="Ingresa la cédula del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" />
+                  <TextField fx:id="nameEmployeeField" promptText="Ingresa el nombre del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="lastNameEmployeeField" prefHeight="26.0" prefWidth="340.0" promptText="Ingresa el apellido del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <TextField fx:id="emailField" promptText="Ingresa el correo del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="addressField" promptText="Ingresa la dirección del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="comboField" prefHeight="26.0" prefWidth="374.0" promptText="Selecciona el cargo del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
+         </children>
+      </HBox>
+      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+        <columns>
+          <TableColumn fx:id="idEmployeeColumn" prefWidth="75.0" text="Cédula" />
+          <TableColumn fx:id="nameEmployeeColumn" prefWidth="75.0" text="Nombre" />
+            <TableColumn fx:id="lastNameEmployeeColumn" prefWidth="75.0" text="Apellido" />
+            <TableColumn fx:id="emailEmployeeColumn" prefWidth="75.0" text="Correo" />
+            <TableColumn fx:id="addressEmployeeColumn" prefWidth="75.0" text="Dirección" />
+            <TableColumn fx:id="jobEmployeeColumn" prefWidth="75.0" text="Cargo" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <HBox alignment="CENTER" prefHeight="57.0" prefWidth="700.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleRemoveButton" style="-fx-background-radius: 20;" text="Eliminar" />
+            <Button mnemonicParsing="false" onAction="#handleSelectButton" style="-fx-background-radius: 20;" text="Seleccionar" />
+            <Button mnemonicParsing="false" onAction="#handleUpdateButton" style="-fx-background-radius: 20;" text="Modificar" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
