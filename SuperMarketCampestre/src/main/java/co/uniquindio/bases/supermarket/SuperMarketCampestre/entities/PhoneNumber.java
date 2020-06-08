@@ -37,6 +37,11 @@ public class PhoneNumber {
 	public void setCode_employee(String code_employee) {
 		this.code_employee = code_employee;
 	}
+	
+	@Override
+	public String toString() {
+		return "PhoneNumber [number=" + number + ", code_employee=" + code_employee + "]";
+	}
 
 	public  void savePhone(long number, String code_employee, Connection connection) {
 		try {

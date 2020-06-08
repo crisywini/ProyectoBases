@@ -28,9 +28,27 @@ public class InitDatabase {
 		createDatabase();
 		createAllTables();
 		a = new AdministratorDelegate();
+		addClients();
+		addServices();
+		addClientsServices();
+		addInvoicesServices();
+		addJobs();
+		addEmployees();
+		addPhoneNumbers();
+		addInventories();
+		addEmployeeInventories();
 		addProviders();
-//		addData();
-//		addProducts();
+		addProducts();
+
+		addProductsProviders();
+		addProductsInventories();
+		addContractsTypes();
+		addContracts();
+		addPaymentsTypes();
+		addOrders();
+		addSales();
+		addProductsSales();
+
 //		Client client = new Client("Juan", "Salazar");
 //		Service service = new Service("Detalles del servicio recarga", "Recarga");
 //		Client_Service clientService = new Client_Service(1, 1);
@@ -127,31 +145,6 @@ public class InitDatabase {
 				"CREATE TABLE Servicio(code int NOT NULL AUTO_INCREMENT, detalle VARCHAR(255), nombre VARCHAR(255), PRIMARY KEY (code));");
 		createTable(
 				"CREATE TABLE Cliente_servicio(code int NOT NULL AUTO_INCREMENT,cliente_code int NOT NULL, servicio_code int NOT NULL, PRIMARY KEY(code, cliente_code, servicio_code),CONSTRAINT fk_service FOREIGN KEY(servicio_code) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cliente FOREIGN KEY(cliente_code)  REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE);");// Al
-																																																																																																						// momento
-																																																																																																						// de
-																																																																																																						// cambiar
-																																																																																																						// un
-																																																																																																						// atributo
-																																																																																																						// en
-																																																																																																						// llave
-																																																																																																						// foranea
-																																																																																																						// de
-																																																																																																						// la
-																																																																																																						// tabla
-																																																																																																						// a
-																																																																																																						// la
-																																																																																																						// cual
-																																																																																																						// pertenece,
-																																																																																																						// se
-																																																																																																						// cambia
-																																																																																																						// en
-																																																																																																						// todas
-																																																																																																						// las
-																																																																																																						// referencias
-																																																																																																						// en
-																																																																																																						// las
-																																																																																																						// que
-																																																																																																						// esté
 		createTable(
 				"CREATE TABLE Factura_servicio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255), fecha DATE, descripcion VARCHAR(255), cantidad int, totalPago DECIMAL, devuelta DECIMAL, code_servicio int NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_service_Factura FOREIGN KEY(code_servicio) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
 		createTable(
@@ -209,18 +202,43 @@ public class InitDatabase {
 		 */
 	}
 
-	public static void addData() {
+	public static void addClients() {
 
-		for (int i = 0; i < 8; i++) {
-			a.addClient("Carlos" + i, "Martinez" + i);
-		}
-		for (int i = 0; i < 8; i++) {
-			a.addClient("Maria" + i, "Cortez" + i);
-		}
-		for (int i = 0; i < 8; i++) {
-			a.addClient("Gabriel" + i, "Salazar" + i);
-		}
+		a.addClient("Carlos", "Martinez");
+		a.addClient("Juan", "Arroyave");
+		a.addClient("Carmen", "Gonzales");
+		a.addClient("Gerardo", "Gutierrez");
+		a.addClient("Gonzalo", "Castano");
+		a.addClient("Juliana", "Vargas");
+		a.addClient("Sofia", "Munoz");
+		a.addClient("Carlos", "Aguirre");
+		a.addClient("Alba", "Gonzales");
+		a.addClient("Andres", "Giraldo");
+		a.addClient("Marisol", "Dias");
+		a.addClient("Lucero", "Maldonado");
+		a.addClient("Jorge", "Garcia");
+		a.addClient("Maria", "Fonseca");
+		a.addClient("Cristina", "Banol");
+		a.addClient("Luis", "Rodriguez");
+		a.addClient("Antonio", "Camargo");
+		a.addClient("Felipe", "Bedoya");
+		a.addClient("Camilo", "Ramirez");
+		a.addClient("Amparo", "Naranjo");
+		a.addClient("Dora", "Fernandez");
+		a.addClient("Marisol", "Dias");
+		a.addClient("Lucero", "Maldonado");
+		a.addClient("Jorge", "Garcia");
+		a.addClient("Maria", "Fonseca");
+		a.addClient("Cristina", "Banol");
+		a.addClient("Luis", "Rodriguez");
+		a.addClient("Antonio", "Camargo");
+		a.addClient("Felipe", "Bedoya");
+		a.addClient("Camilo", "Ramirez");
+		a.addClient("Amparo", "Naranjo");
+		a.addClient("Dora", "Fernandez");
+	}
 
+	public static void addServices() {
 		try {
 			a.addService("Recarga", "Recarga");
 			a.addService("Pago de recibos", "Pago de recibos");
@@ -229,20 +247,31 @@ public class InitDatabase {
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
+	}
 
-		for (int i = 1; i < 5; i++) {
+	public static void addClientsServices() {
+
+		for (int i = 1; i < 8; i++) {
 			a.addClientService(i, 1);
 		}
-		for (int i = 10; i < 15; i++) {
+		for (int i = 8; i < 16; i++) {
 			a.addClientService(i, 2);
 		}
+		for (int i = 16; i < 21; i++) {
+			a.addClientService(i, 2);
+		}
+		for (int i = 21; i < 31; i++) {
+			a.addClientService(i, 3);
+		}
+	}
 
-		for (int i = 1; i < 5; i++) {
-			a.addInvoiceService("Por la " + i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 1);
+	public static void addInvoicesServices() {
+		for (int i = 1; i < 31; i++) {
+			a.addInvoiceService("Supermarket Campestre", "2020-06-01", "Descripcion" + i, 2, 5000, 500, 1);
 		}
-		for (int i = 8; i < 18; i++) {
-			a.addInvoiceService("Por la " + i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 2);
-		}
+	}
+
+	public static void addJobs() {
 		try {
 			a.addJob("Administrador");
 			a.addJob("Auxiliar de caja");
@@ -250,9 +279,11 @@ public class InitDatabase {
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
+	}
 
+	public static void addEmployees() {
 		try {
-			a.addEmployee("e1", "Carlos", "Martin", "cm@gmail.com", "Casa a", 1);
+			a.addEmployee("e1", "Rodolfo", "Moran", "rm@gmail.com", "Casa a", 1);
 			a.addEmployee("e2", "Andres", "Castrillon", "ac@hotmail.com", "Casa b", 2);
 			a.addEmployee("e3", "Marta", "Marin", "mm@gmail.com", "Casa c", 3);
 			a.addEmployee("e4", "Cecilia", "Grajales", "cg@hotmail.com", "Casa d", 1);
@@ -262,20 +293,90 @@ public class InitDatabase {
 			a.addEmployee("e8", "Camila", "Zapata", "cz@hotmail.com", "Casa h", 2);
 			a.addEmployee("e9", "Lola", "Guzman", "lg@gmail.com", "Casa i", 3);
 			a.addEmployee("e10", "Julian", "Lopez", "jl@gmail.com", "Casa j", 3);
+			a.addEmployee("e11", "Carlos", "Martinez", "cm@gmail.com", "Casa a", 1);
+			a.addEmployee("e12", "Marleni", "Gutierrez", "mg@hotmail.com", "Casa b", 2);
+			a.addEmployee("e13", "Fernando", "Carbajal", "fc@gmail.com", "Casa c", 3);
+			a.addEmployee("e14", "Eduardo", "Jaramillo", "ej@hotmail.com", "Casa d", 1);
+			a.addEmployee("e15", "Ana", "Castano", "ac@gmail.com", "Casa e", 2);
+			a.addEmployee("e16", "Amanda", "Higuita", "ah@hotmail.com", "Casa f", 3);
+			a.addEmployee("e17", "Carmen", "Pineda", "cp@gmail.com", "Casa g", 1);
+			a.addEmployee("e18", "Nicolas", "Pena", "np@hotmail.com", "Casa h", 2);
+			a.addEmployee("e19", "Manuel", "Hernandez", "mh@gmail.com", "Casa i", 3);
+			a.addEmployee("e20", "Paula", "Torrez", "pt22@gmail.com", "Casa j", 3);
+			a.addEmployee("e21", "Julian", "Lopez", "jl22@gmail.com", "Casa j", 3);
+			a.addEmployee("e22", "Carlos", "Martinez", "cm2@gmail.com", "Casa a", 1);
+			a.addEmployee("e23", "Marleni", "Gutierrez", "mg2@hotmail.com", "Casa b", 2);
+			a.addEmployee("e24", "Camilo", "Jaramillo", "ej2@hotmail.com", "Casa d", 1);
+			a.addEmployee("e25", "Mario", "Arango", "ac2@gmail.com", "Casa e", 2);
+			a.addEmployee("e26", "Sergio", "Higuita", "ah2@hotmail.com", "Casa f", 3);
+			a.addEmployee("e27", "Rosa", "Pineda", "cp2@gmail.com", "Casa g", 1);
+			a.addEmployee("e28", "Clarita", "Rendon", "np2@hotmail.com", "Casa h", 2);
+			a.addEmployee("e29", "Lucia", "Hernandez", "mh2@gmail.com", "Casa i", 3);
+			a.addEmployee("e30", "Miguel", "Torrez", "pt2@gmail.com", "Casa j", 3);
+
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
+	}
 
-		for (int i = 1; i < 10; i++) {
+	public static void addPhoneNumbers() {
+		for (int i = 1; i < 31; i++) {
 			try {
-				a.addPhoneNumber(7375580 + i, "e" + i);
+				a.addPhoneNumber(7370000 + i, "e" + i);
 			} catch (EntityRepeatedException e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static void addInventories() {
+
+		a.addInventory("2018-11-01");
+		a.addInventory("2018-12-01");
+		a.addInventory("2019-01-01");
+		a.addInventory("2019-02-01");
+		a.addInventory("2019-03-01");
+		a.addInventory("2019-04-01");
+		a.addInventory("2019-05-01");
+		a.addInventory("2019-06-01");
+		a.addInventory("2019-07-01");
+		a.addInventory("2019-08-01");
+		a.addInventory("2019-09-01");
+		a.addInventory("2019-10-01");
+		a.addInventory("2019-11-01");
+		a.addInventory("2019-12-01");
+		a.addInventory("2020-01-01");
+		a.addInventory("2020-02-01");
+		a.addInventory("2020-03-01");
+		a.addInventory("2020-04-01");
+		a.addInventory("2020-05-01");
+		a.addInventory("2020-06-01");
+	}
+
+	public static void addEmployeeInventories() {
+
+		for (int i = 1; i < 21; i++) {
+
+			a.addEmployeeInventory("e"+i, i);
+
+		}
+	}
+
+	public static void addProviders() {
 		try {
-			a.addContractType("Con fecha de terminación no definida", "Indefinido");
-			a.addContractType("Con fecha de terminación definida", "Definido");
+			a.addProvider("colanta@hotmail.com", "Colanta", "Fabrica industrial de Medellín", "764594");
+			a.addProvider("colombina@gmail.com", "Colombina", "Fabrica industrial de Medellín", "7645949");
+			a.addProvider("huevosoro@gmail.com", "Huevos Oro", "Finca de Huevos Oro", "3146567798");
+			a.addProvider("Zenú@hotmail.com", "Zenú", "Fabrica industrial de Medellín", "76459498");
+			a.addProvider("aguilacerve@hotmail.com", "Cerveza Águila", "Licorera de Medellín", "7364594");
+			a.addProvider("oreo@oreomail.com", "Oreo", "Fabrica de Oreos", "3145646546");
+			a.addProvider("ArrozDiana@hotmail.com", "Arroz Diana", "Fabrica industrial de Medellín", "7364594");
+			a.addProvider("alpina@hotmail.com", "Alpina", "Fabrica industrial de Arequipe", "732235");
+			a.addProvider("nescafe@gmail.com", "Nescafe", "Fabrica industrial de Café", "308073494");
+			a.addProvider("Grisly@hotmail.com", "Grisly", "Fabrica industrial de Pereira", "7393594");
+			a.addProvider("hit@hotmail.com", "Hit", "Fabrica industrial de jugos", "3229922019");
+			a.addProvider("granos@hotmail.com", "Granos del Café", "Fabrica industrial de granos", "3229922019");
+
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
@@ -295,24 +396,124 @@ public class InitDatabase {
 			a.addProduct(20, "Galletas Oreo", "Paquete de galletas Oreo de Vainilla de 4", 700);
 			a.addProduct(20, "Cerveza Club Colombia negra", "Pack 6 cervezas", 15000);
 			a.addProduct(20, "Cerveza Aguila", "Pack 6 Cervezas", 12500);
+			a.addProduct(20, "Queso", "Queso doble crema colanta", 5800);
+			a.addProduct(20, "Jamón", "Jamón de animal muerto", 3600);
+			a.addProduct(50, "Arequipe", "Arequipe Alpina x2", 10000);
+			a.addProduct(40, "Frijol", "Frijol rojo", 2800);
+			a.addProduct(30, "Lenteja", "Lentejas la finquita", 2500);
+			a.addProduct(50, "Gomitas", "Gomas Grisly por 12 unidades", 2000);
+			a.addProduct(20, "Café", "Cafe Nercafé triturado", 7200);
+			a.addProduct(20, "Mariz Pira", "Maiz pira Dona sol", 3500);
+			a.addProduct(20, "Jugo hit", "Jugo hit sabor salpicón", 5000);
 
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void addProviders() {
+
+	public static void addProductsProviders() {
+
+		a.addProductProvider(1, 1);
+		a.addProductProvider(1, 2);
+		a.addProductProvider(1, 11);
+		a.addProductProvider(2, 6);
+		a.addProductProvider(2, 7);
+		a.addProductProvider(2, 9);
+		a.addProductProvider(2, 10);
+		a.addProductProvider(3, 3);
+		a.addProductProvider(4, 5);
+		a.addProductProvider(4, 14);
+		a.addProductProvider(5, 11);
+		a.addProductProvider(5, 12);
+		a.addProductProvider(6, 8);
+		a.addProductProvider(7, 4);
+		a.addProductProvider(8, 15);
+		a.addProductProvider(9, 19);
+		a.addProductProvider(10, 18);
+		a.addProductProvider(11, 21);
+		a.addProductProvider(12, 8);
+		a.addProductProvider(12, 16);
+		a.addProductProvider(12, 17);
+		a.addProductProvider(12, 20);
+
+	}
+
+	public static void addProductsInventories() {
+
+		for (int i = 1; i < 21; i++) {
+			a.addProductInventory(i, i, 20);
+		}
+
+	}
+
+	public static void addContractsTypes() {
+
 		try {
-			a.addProvider("colanta@hotmail.com", "Colanta", "Fabrica industrial de Medellín", "764594");
-			a.addProvider("colombina@gmail.com", "Colombina", "Fabrica industrial de Medellín", "7645949");
-			a.addProvider("huevosoro@gmail.com", "Huevos Oro", "Finca de Huevos Oro", "3146567798");
-			a.addProvider("Zenú@hotmail.com", "Zenú", "Fabrica industrial de Medellín", "76459498");
-			a.addProvider("aguilacerve@hotmail.com", "Cerveza Águila", "Licorera de Medellín", "5764594");
-			a.addProvider("oreo@oreomail.com", "Oreo", "Fabrica de Oreos", "4564654456");
-			a.addProvider("ArrozDiana@hotmail.com", "Arroz Diana", "Fabrica industrial de Medellín", "46764594");
-
+			a.addContractType("Con fecha de terminación no definida", "Indefinido");
+			a.addContractType("Con fecha de terminación definida", "Definido");
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
 	}
+
+	public static void addContracts() {
+
+		try {
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e1", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e4", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e7", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e11", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e14", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e17", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e22", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e23", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e26", 1);
+
+		} catch (EntityRepeatedException e) {
+
+			e.printStackTrace();
+		}
+	}
+
+	public static void addPaymentsTypes() {
+
+		try {
+			a.addPaymentType("Tarjeta", "Pago con tarjeta");
+			a.addPaymentType("Efectivo", "Pago en efectivo");
+		} catch (EntityRepeatedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void addOrders() {
+		a.addOrder("Santa María del Pinar", "e2");
+		a.addOrder("Santa María del Pinar", "e5");
+		a.addOrder("Santa María del Pinar", "e8");
+		a.addOrder("Cano Cristales", "e12");
+		a.addOrder("Cano Cristales", "e15");
+		a.addOrder("Palo de agua", "e18");
+		a.addOrder("Palo de agua", "e23");
+		a.addOrder("Baru", "e25");
+		a.addOrder("Baru", "e28");
+		a.addOrder("Baru", "e8");
+		a.addOrder("Baru", "e5");
+		a.addOrder("Puerta de agua", "e25");
+
+	}
+
+	public static void addSales() {
+		for (int i = 1; i < 13; i++) {
+
+			a.addSale(50000, i, i);
+		}
+	}
+
+	public static void addProductsSales() {
+		for (int i = 1; i < 13; i++) {
+			a.addProductSale(i, i);
+		}
+
+	}
+
 }

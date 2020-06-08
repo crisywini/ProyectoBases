@@ -854,20 +854,19 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 //	ESTE ES EL QUE FALLA
 
 	@Override
-	public List<Employee> getEmployeeByPhoneNumber() {
-		List<Employee> EmployeList = new ArrayList<Employee>();
+	public List<PhoneNumber> getEmployeeByPhoneNumber() {
+		List<PhoneNumber> phoneList = new ArrayList<PhoneNumber>();
 		try {
-			final String SQL = "SELECT COUNT(t.empleado_cedula) as cantidad, e.nombre FROM Empleado e INNER JOIN Telefono t ON e.cedula = t.empleado_cedula;";
+			final String SQL = "SELECT COUNT(t.empleado_cedula) as cantidad, e.nombre FROM Empleado e INNER JOIN Telefono t ON e.cedula = t.empleado_cedula GROUP BY e.nombre;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				EmployeList.add(new Employee(resultSet.getString(1), resultSet.getString(2), resultSet.getString(3),
-						resultSet.getString(4), resultSet.getString(5), resultSet.getInt(6)));
+				phoneList.add(new PhoneNumber(resultSet.getInt(1), resultSet.getString(2)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
-		return EmployeList;
+		return phoneList;
 	}
 
 	@Override

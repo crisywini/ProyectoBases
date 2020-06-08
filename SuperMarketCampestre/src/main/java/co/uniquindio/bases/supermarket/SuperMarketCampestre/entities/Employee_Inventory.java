@@ -38,6 +38,11 @@ public class Employee_Inventory {
 		this.code_inventory = code_inventory;
 	}
 
+	@Override
+	public String toString() {
+		return "Employee_Inventory [code_employee=" + code_employee + ", code_inventory=" + code_inventory + "]";
+	}
+
 	public void saveEmployeeInventory(String code_employee, int code_inventory, Connection connection) {
 		try {
 			PreparedStatement statement = connection
