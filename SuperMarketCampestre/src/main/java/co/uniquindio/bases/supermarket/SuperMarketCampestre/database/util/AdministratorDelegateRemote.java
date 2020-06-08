@@ -11,6 +11,7 @@ import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PaymentType;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.PhoneNumber;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
 
@@ -99,7 +100,7 @@ public interface AdministratorDelegateRemote {
 //	nombre del empleado que más ventas realizo
 	List<Employee> getEmployeeBySale();
 //	Nombre de los 3 empleados que tienen más números de telefono
-	List<Employee> getEmployeeByPhoneNumber();
+	List<PhoneNumber> getEmployeeByPhoneNumber();
 //	Nombre del numero de compras que realizan los clientes con su nombre
 	List<Order> getQuantityOrderByEmployee();
 	

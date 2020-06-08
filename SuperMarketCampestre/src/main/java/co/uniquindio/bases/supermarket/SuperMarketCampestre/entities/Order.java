@@ -46,6 +46,11 @@ public class Order {
 	public void setCode_employee(String code_employee) {
 		this.code_employee = code_employee;
 	}
+	
+	@Override
+	public String toString() {
+		return "Order [code=" + code + ", address=" + address + ", code_employee=" + code_employee + "]";
+	}
 
 	public void saveOrder(String address, String code_employee, Connection connection) {
 		try {
