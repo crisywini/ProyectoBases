@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.reports.ReportGenerator;
 
 //import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.*;
 
@@ -25,29 +26,31 @@ public class InitDatabase {
 	private static AdministratorDelegate a;
 
 	public static void main(String[] args) {
-		createDatabase();
-		createAllTables();
-		a = new AdministratorDelegate();
-		addClients();
-		addServices();
-		addClientsServices();
-		addInvoicesServices();
-		addJobs();
-		addEmployees();
-		addPhoneNumbers();
-		addInventories();
-		addEmployeeInventories();
-		addProviders();
-		addProducts();
-
-		addProductsProviders();
-		addProductsInventories();
-		addContractsTypes();
-		addContracts();
-		addPaymentsTypes();
-		addOrders();
-		addSales();
-		addProductsSales();
+		ReportGenerator rg = new ReportGenerator();
+		rg.createReport1();
+//		createDatabase();
+//		createAllTables();
+//		a = new AdministratorDelegate();
+//		addClients();
+//		addServices();
+//		addClientsServices();
+//		addInvoicesServices();
+//		addJobs();
+//		addEmployees();
+//		addPhoneNumbers();
+//		addInventories();
+//		addEmployeeInventories();
+//		addProviders();
+//		addProducts();
+//
+//		addProductsProviders();
+//		addProductsInventories();
+//		addContractsTypes();
+//		addContracts();
+//		addPaymentsTypes();
+//		addOrders();
+//		addSales();
+//		addProductsSales();
 
 //		Client client = new Client("Juan", "Salazar");
 //		Service service = new Service("Detalles del servicio recarga", "Recarga");
@@ -328,7 +331,7 @@ public class InitDatabase {
 			}
 		}
 	}
-	
+
 	public static void addInventories() {
 
 		a.addInventory("2018-11-01");
@@ -357,7 +360,7 @@ public class InitDatabase {
 
 		for (int i = 1; i < 21; i++) {
 
-			a.addEmployeeInventory("e"+i, i);
+			a.addEmployeeInventory("e" + i, i);
 
 		}
 	}
@@ -410,7 +413,6 @@ public class InitDatabase {
 			e.printStackTrace();
 		}
 	}
-
 
 	public static void addProductsProviders() {
 

@@ -633,7 +633,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 	public List<Client> getClientNameDesc() {
 		List<Client> clientList = new ArrayList<Client>();
 		try {
-			final String SQL = "SELECT * FROM Cliente ORDER BY nombre DESC;";
+			final String SQL = "SELECT * FROM Cliente ORDER BY nombre;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
@@ -681,7 +681,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 	public List<Order> get5OrderByCost() {
 		List<Order> orderList = new ArrayList<Order>();
 		try {
-			final String SQL = "SELECT v.costo_total FROM Domicilio d INNER JOIN Venta v ON d.code = v.code_domicilio ORDER BY v.costo_total LIMIT 5;";
+			final String SQL = "SELECT v.costo_total, d.direccion FROM Domicilio d INNER JOIN Venta v ON d.code = v.code_domicilio GROUP BY d.code ORDER BY v.costo_total;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
@@ -857,6 +857,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 	public List<PhoneNumber> getEmployeeByPhoneNumber() {
 		List<PhoneNumber> phoneList = new ArrayList<PhoneNumber>();
 		try {
+			String sql = "SELECT COUNT(t.empleado_cedula) as cantidad, e.nombre FROM Empleado e INNER JOIN Telefono t ON e.cedula = t.empleado_cedula GROUP BY e.nombre ORDER BY cantidad desc;";
 			final String SQL = "SELECT COUNT(t.empleado_cedula) as cantidad, e.nombre FROM Empleado e INNER JOIN Telefono t ON e.cedula = t.empleado_cedula GROUP BY e.nombre;";
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
