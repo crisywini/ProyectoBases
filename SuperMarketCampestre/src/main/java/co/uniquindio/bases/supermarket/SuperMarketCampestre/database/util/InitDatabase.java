@@ -145,31 +145,6 @@ public class InitDatabase {
 				"CREATE TABLE Servicio(code int NOT NULL AUTO_INCREMENT, detalle VARCHAR(255), nombre VARCHAR(255), PRIMARY KEY (code));");
 		createTable(
 				"CREATE TABLE Cliente_servicio(code int NOT NULL AUTO_INCREMENT,cliente_code int NOT NULL, servicio_code int NOT NULL, PRIMARY KEY(code, cliente_code, servicio_code),CONSTRAINT fk_service FOREIGN KEY(servicio_code) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cliente FOREIGN KEY(cliente_code)  REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE);");// Al
-																																																																																																						// momento
-																																																																																																						// de
-																																																																																																						// cambiar
-																																																																																																						// un
-																																																																																																						// atributo
-																																																																																																						// en
-																																																																																																						// llave
-																																																																																																						// foranea
-																																																																																																						// de
-																																																																																																						// la
-																																																																																																						// tabla
-																																																																																																						// a
-																																																																																																						// la
-																																																																																																						// cual
-																																																																																																						// pertenece,
-																																																																																																						// se
-																																																																																																						// cambia
-																																																																																																						// en
-																																																																																																						// todas
-																																																																																																						// las
-																																																																																																						// referencias
-																																																																																																						// en
-																																																																																																						// las
-																																																																																																						// que
-																																																																																																						// esté
 		createTable(
 				"CREATE TABLE Factura_servicio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255), fecha DATE, descripcion VARCHAR(255), cantidad int, totalPago DECIMAL, devuelta DECIMAL, code_servicio int NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_service_Factura FOREIGN KEY(code_servicio) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
 		createTable(
@@ -352,9 +327,56 @@ public class InitDatabase {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static void addInventories() {
+
+		a.addInventory("2018-11-01");
+		a.addInventory("2018-12-01");
+		a.addInventory("2019-01-01");
+		a.addInventory("2019-02-01");
+		a.addInventory("2019-03-01");
+		a.addInventory("2019-04-01");
+		a.addInventory("2019-05-01");
+		a.addInventory("2019-06-01");
+		a.addInventory("2019-07-01");
+		a.addInventory("2019-08-01");
+		a.addInventory("2019-09-01");
+		a.addInventory("2019-10-01");
+		a.addInventory("2019-11-01");
+		a.addInventory("2019-12-01");
+		a.addInventory("2020-01-01");
+		a.addInventory("2020-02-01");
+		a.addInventory("2020-03-01");
+		a.addInventory("2020-04-01");
+		a.addInventory("2020-05-01");
+		a.addInventory("2020-06-01");
+	}
+
+	public static void addEmployeeInventories() {
+
+		for (int i = 1; i < 21; i++) {
+
+			a.addEmployeeInventory("e"+i, i);
+
+		}
+	}
+
+	public static void addProviders() {
 		try {
-			a.addContractType("Con fecha de terminación no definida", "Indefinido");
-			a.addContractType("Con fecha de terminación definida", "Definido");
+			a.addProvider("colanta@hotmail.com", "Colanta", "Fabrica industrial de Medellín", "764594");
+			a.addProvider("colombina@gmail.com", "Colombina", "Fabrica industrial de Medellín", "7645949");
+			a.addProvider("huevosoro@gmail.com", "Huevos Oro", "Finca de Huevos Oro", "3146567798");
+			a.addProvider("Zenú@hotmail.com", "Zenú", "Fabrica industrial de Medellín", "76459498");
+			a.addProvider("aguilacerve@hotmail.com", "Cerveza Águila", "Licorera de Medellín", "7364594");
+			a.addProvider("oreo@oreomail.com", "Oreo", "Fabrica de Oreos", "3145646546");
+			a.addProvider("ArrozDiana@hotmail.com", "Arroz Diana", "Fabrica industrial de Medellín", "7364594");
+			a.addProvider("alpina@hotmail.com", "Alpina", "Fabrica industrial de Arequipe", "732235");
+			a.addProvider("nescafe@gmail.com", "Nescafe", "Fabrica industrial de Café", "308073494");
+			a.addProvider("Grisly@hotmail.com", "Grisly", "Fabrica industrial de Pereira", "7393594");
+			a.addProvider("hit@hotmail.com", "Hit", "Fabrica industrial de jugos", "3229922019");
+			a.addProvider("granos@hotmail.com", "Granos del Café", "Fabrica industrial de granos", "3229922019");
+
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
@@ -389,7 +411,6 @@ public class InitDatabase {
 		}
 	}
 
-	public static void addProviders() {
 
 	public static void addProductsProviders() {
 
@@ -429,8 +450,8 @@ public class InitDatabase {
 	public static void addContractsTypes() {
 
 		try {
-			a.addContractType("Por seis meses", "Termino Definido");
-			a.addContractType("Indefinido", "Termino Indefinido");
+			a.addContractType("Con fecha de terminación no definida", "Indefinido");
+			a.addContractType("Con fecha de terminación definida", "Definido");
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
@@ -458,8 +479,8 @@ public class InitDatabase {
 	public static void addPaymentsTypes() {
 
 		try {
-			a.addPaymentType("Tarjeta", "Pago con tarjeta Bancolombia");
-			a.addPaymentType("Efectivo", "Dinero en efectivo");
+			a.addPaymentType("Tarjeta", "Pago con tarjeta");
+			a.addPaymentType("Efectivo", "Pago en efectivo");
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
