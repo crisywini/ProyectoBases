@@ -270,6 +270,7 @@ public class AdminContractViewController {
 	}
 
 	public void initTableView() {
+		tableView.getItems().clear();
 		codeColumn.setCellValueFactory(cellData -> cellData.getValue().getCode());
 		contractTypeColumn.setCellValueFactory(cellData -> cellData.getValue().getCodeContractType());
 		endDateColumn.setCellValueFactory(cellData -> cellData.getValue().getEndDate());
