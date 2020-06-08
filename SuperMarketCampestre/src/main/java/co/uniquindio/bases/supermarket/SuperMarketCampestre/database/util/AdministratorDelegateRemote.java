@@ -109,5 +109,4 @@ public interface AdministratorDelegateRemote {
 //	Nombre del numero de compras que realizan los clientes con su nombre
 	List<Order> getQuantityOrderByEmployee();
 	
-	
 }

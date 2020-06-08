@@ -379,7 +379,12 @@ public class InitDatabase {
 			a.addProvider("Grisly@hotmail.com", "Grisly", "Fabrica industrial de Pereira", "7393594");
 			a.addProvider("hit@hotmail.com", "Hit", "Fabrica industrial de jugos", "3229922019");
 			a.addProvider("granos@hotmail.com", "Granos del Café", "Fabrica industrial de granos", "3229922019");
-
+			a.addProvider("coca@gmail.com", "Cocacola", "Fabrica Cocacola", "7399909");
+			a.addProvider("Postobon@hotmail.com", "Postobon", "Fabrica de Postobon", "7308035");
+			a.addProvider("pompy@hotmail.com", "MrPompy", "Fabrica de mr Pompy principal", "3128029302");
+			a.addProvider("bbb@hotmail.com", "Bonbombun", "Fabrica de bombones", "7390202");
+			a.addProvider("trululu@gmail.com", "Trululu", "Fabrica de dulces", "3208390282");
+			
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
@@ -462,15 +467,27 @@ public class InitDatabase {
 	public static void addContracts() {
 
 		try {
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e1", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e4", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e7", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e11", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e14", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e17", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e22", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e23", 1);
-			a.addContract(1000000, "2018-06-03", "2020-06-03", 1, "e26", 1);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e2", 2);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e3", 3);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e5", 2);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e6", 3);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e8", 2);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e9", 3);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e10", 3);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e12", 2);
+			a.addContract(1000000, "2018-06-03", "2020-06-03", 2, "e13", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e15", 2);
+			a.addContract2(1000000, "2019-01-01", 1, "e16", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e18", 2);
+			a.addContract2(1000000, "2019-01-01", 1, "e19", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e20", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e21", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e23", 2);
+			a.addContract2(1000000, "2019-01-01", 1, "e25", 2);
+			a.addContract2(1000000, "2019-01-01", 1, "e26", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e28", 2);
+			a.addContract2(1000000, "2019-01-01", 1, "e29", 3);
+			a.addContract2(1000000, "2019-01-01", 1, "e30", 3);
 
 		} catch (EntityRepeatedException e) {
 
@@ -501,18 +518,54 @@ public class InitDatabase {
 		a.addOrder("Baru", "e8");
 		a.addOrder("Baru", "e5");
 		a.addOrder("Puerta de agua", "e25");
+		a.addOrder("Santa María del Pinar", "e2");
+		a.addOrder("Santa María del Pinar", "e5");
+		a.addOrder("Santa María del Pinar", "e8");
+		a.addOrder("Cano Cristales", "e12");
+		a.addOrder("Cano Cristales", "e15");
+		a.addOrder("Palo de agua", "e18");
+		a.addOrder("Palo de agua", "e23");
+		a.addOrder("Baru", "e25");
+		a.addOrder("Baru", "e28");
+		a.addOrder("Baru", "e8");
+		a.addOrder("Baru", "e5");
+		a.addOrder("Puerta de agua", "e25");
+		a.addOrder("Santa María del Pinar", "e2");
+		a.addOrder("Santa María del Pinar", "e5");
+		a.addOrder("Santa María del Pinar", "e8");
+		a.addOrder("Cano Cristales", "e12");
+		a.addOrder("Cano Cristales", "e15");
+		a.addOrder("Palo de agua", "e18");
+		a.addOrder("Palo de agua", "e23");
+		a.addOrder("Baru", "e25");
+		a.addOrder("Baru", "e28");
+		a.addOrder("Baru", "e8");
+		a.addOrder("Baru", "e5");
+		a.addOrder("Puerta de agua", "e25");
+		a.addOrder("Santa María del Pinar", "e2");
+		a.addOrder("Santa María del Pinar", "e5");
+		a.addOrder("Santa María del Pinar", "e8");
+		a.addOrder("Cano Cristales", "e12");
+		a.addOrder("Cano Cristales", "e15");
+		a.addOrder("Palo de agua", "e18");
+		a.addOrder("Palo de agua", "e23");
+		a.addOrder("Baru", "e25");
+		a.addOrder("Baru", "e28");
+		a.addOrder("Baru", "e8");
+		a.addOrder("Baru", "e5");
+		a.addOrder("Puerta de agua", "e25");
 
 	}
 
 	public static void addSales() {
-		for (int i = 1; i < 13; i++) {
+		for (int i = 1; i < 30; i++) {
 
 			a.addSale(50000, i, i);
 		}
 	}
 
 	public static void addProductsSales() {
-		for (int i = 1; i < 13; i++) {
+		for (int i = 1; i < 22; i++) {
 			a.addProductSale(i, i);
 		}
 
