@@ -2,6 +2,8 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre;
 
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.Test;
 
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.EntityRepeatedException;
@@ -40,7 +42,8 @@ public class AppTest {
 	@Test
 	public void addContractTest() {
 		try {
-			admin.addContract(900000, "2009-06-03", "2010-06-03", 1, "03", 1);
+			admin.addContract2(900000, "2009-06-03", 1, "03", 1);
+
 			assertTrue(true);
 		} catch (EntityRepeatedException e) {
 			System.err.println(e.getMessage());
@@ -93,7 +96,9 @@ public class AppTest {
 			assertTrue(true);
 		}
 	}
-
+//	public void addContractTest() {
+//		
+//	}
 	@Test
 	public void addProviderTest() {
 		try {
@@ -177,6 +182,13 @@ public class AppTest {
 			System.err.println(e.getMessage());
 			assertTrue(true);
 		}
+	}
+	@Test
+	public void dateTest() {
+		LocalDate date = LocalDate.now();
+		System.out.println(date.getDayOfMonth());
+		System.out.println(date.getMonthValue());
+		System.out.println(date.getYear());
 	}
 
 	@Test

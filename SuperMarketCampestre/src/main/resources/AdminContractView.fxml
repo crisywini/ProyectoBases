@@ -44,17 +44,17 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
                      <children>
-                        <Label text="Fecha Inicio" />
+                        <Label text="Término" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                      <children>
-                        <Label text="Fecha Fin" />
+                        <Label text="Fecha Inicio" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
                      <children>
-                        <Label text="Término" />
+                        <Label text="Fecha Fin" />
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
@@ -73,16 +73,16 @@
                      </children>
                   </HBox>
                   <TextField fx:id="salaryField" promptText="Ingresa el sueldo" style="-fx-background-radius: 20;" GridPane.columnIndex="1" />
-                  <DatePicker fx:id="startDate" prefHeight="26.0" prefWidth="273.0" promptText="Ingresa la fecha inicio" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <DatePicker fx:id="endDate" prefHeight="26.0" prefWidth="295.0" promptText="Ingresa la fecha fin" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <ComboBox fx:id="comboContractType" prefHeight="26.0" prefWidth="311.0" promptText="Selecciona el término" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <DatePicker fx:id="endDate" prefHeight="26.0" prefWidth="295.0" promptText="Ingresa la fecha fin" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ComboBox fx:id="comboContractType" prefHeight="26.0" prefWidth="311.0" promptText="Selecciona el término" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="idEmployeeField" promptText="Ingresa la cédula del empleado" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <ComboBox fx:id="comboJob" prefHeight="26.0" prefWidth="317.0" promptText="Selecciona el cargo" style="-fx-background-radius: 20;" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <DatePicker fx:id="startDate" prefHeight="26.0" prefWidth="273.0" promptText="Ingresa la fecha inicio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
          </children>
       </HBox>
-      <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+      <TableView fx:id="tableView" prefHeight="332.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
         <columns>
           <TableColumn fx:id="codeColumn" prefWidth="75.0" text="Código" />
           <TableColumn fx:id="idEmployeeColumn" prefWidth="75.0" text="Empleado" />

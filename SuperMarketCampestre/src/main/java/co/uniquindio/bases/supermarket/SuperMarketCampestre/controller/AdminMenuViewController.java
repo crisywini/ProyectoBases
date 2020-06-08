@@ -33,7 +33,7 @@ public class AdminMenuViewController {
 
 	@FXML
 	void handleContractMenu(ActionEvent event) {
-
+		loadContractView();
 	}
 
 	@FXML
@@ -69,6 +69,8 @@ public class AdminMenuViewController {
 	ProviderAdminViewController providerViewController;
 	VBox employeeView;
 	EmployeeAdminViewController employeeViewController;
+	VBox contractView;
+	AdminContractViewController contractViewController;
 
 	public void loadProductView() {
 		if (productView == null) {
@@ -83,6 +85,21 @@ public class AdminMenuViewController {
 		productAdminViewController.setLastView(this);
 		menuPane.setCenter(productView);
 	}
+
+	public void loadContractView() {
+		if (contractView == null) {
+			try {
+				FXMLLoader loader = new FXMLLoader(Main.class.getResource("/AdminContractView.fxml"));
+				contractView = (VBox) loader.load();
+				contractViewController = loader.getController();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		contractViewController.setLastView(this);
+		menuPane.setCenter(contractView);
+	}
+
 	public void loadEmployee() {
 		if (employeeView == null) {
 			try {

@@ -7,6 +7,7 @@ import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Client;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Contract;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.ContractType;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Employee;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Job;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Order;
@@ -20,7 +21,8 @@ public interface AdministratorDelegateRemote {
 
 	void addContract(double salary, String startDate, String endDate, int code_type, String code_employee, int code_job)
 			throws EntityRepeatedException;
-
+	void addContract2(double salary, String startDate, int code_type, String code_employee, int code_job)
+			throws EntityRepeatedException;
 	void addContractType(String description, String name) throws EntityRepeatedException;
 
 	void addEmployee(String code, String name, String last_name, String email, String address, int code_job)
@@ -72,17 +74,20 @@ public interface AdministratorDelegateRemote {
 	Client getClient(String name, String lastName) throws NonexistentEntityException;
 	Product getProduct(String name, String details) throws NonexistentEntityException;
 	Provider getProvider(String email) throws NonexistentEntityException;
+	Contract getContract(String startDate, String endDate, String code_employee, int code_job) throws NonexistentEntityException;
 
 	List<Contract> getAllContracts();
 	List<Employee> getAllEmployees();
 	List<Product> getAllProducts();
 	List<Provider> getAllProviders();
 	
+	List<ContractType> getAllContractTypes();
 	List<PaymentType> getAllPaymentType();
 	List<Job> getAllJobs();
 	void updateProduct(Product product);
 	void updatePrivider(Provider provider);
 	void updateEmployee(Employee employee);
+	void updateContract(Contract contract);
 	
 	List<Product> getProductsWithTheHighestPrice();
 	List<Provider> getProvidersGmail();
