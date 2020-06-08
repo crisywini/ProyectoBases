@@ -111,7 +111,7 @@ public class AdminMenuViewController {
 			}
 		}
 		employeeViewController.setLastView(this);
-		menuPane.setCenter(productView);
+		menuPane.setCenter(employeeView);
 	}
 
 	public void loadProviderView() {

@@ -85,6 +85,7 @@ public class EmployeeAdminViewController {
 						jobSelected.getCode());
 				MainController.showAlert("El empleado: " + idEmployeeField.getText() + " ha sido agregado",
 						"INFORMACIÓN", AlertType.INFORMATION);
+				initTableView();
 				idEmployeeField.setText("");
 				nameEmployeeField.setText("");
 				lastNameEmployeeField.setText("");
@@ -107,6 +108,8 @@ public class EmployeeAdminViewController {
 			errorMessage += "Debes ingresar el correo electrónico\n";
 		if (idEmployeeField.getText().isEmpty())
 			errorMessage += "Debes ingresar la cédula\n";
+		else if (idEmployeeField.getText().length() > 10)
+			errorMessage += "La cédula debe tener 10 caracereres o menos\n";
 		if (lastNameEmployeeField.getText().isEmpty())
 			errorMessage += "Debes ingresar el apellido\n";
 		if (nameEmployeeField.getText().isEmpty())
@@ -126,8 +129,9 @@ public class EmployeeAdminViewController {
 			employeeSelected = tableView.getSelectionModel().getSelectedItem();
 			try {
 				admin.removeEmployee(employeeSelected.getId().get());
-				MainController.showAlert("Se ha eliminado el empleado: " + employeeSelected.getId(), "ADVERTENCIA",
-						AlertType.WARNING);
+				MainController.showAlert("Se ha eliminado el empleado: " + employeeSelected.getId().get(),
+						"ADVERTENCIA", AlertType.WARNING);
+				initTableView();
 				idEmployeeField.setText("");
 				nameEmployeeField.setText("");
 				lastNameEmployeeField.setText("");
@@ -147,7 +151,7 @@ public class EmployeeAdminViewController {
 		if (!tableView.getSelectionModel().isEmpty()) {
 			employeeSelected = tableView.getSelectionModel().getSelectedItem();
 
-			MainController.showAlert("Se ha seleccionado el empleado: " + employeeSelected.getId(), "INFORMACIÓN",
+			MainController.showAlert("Se ha seleccionado el empleado: " + employeeSelected.getId().get(), "INFORMACIÓN",
 					AlertType.INFORMATION);
 			idEmployeeField.setText(employeeSelected.getId().get());
 			nameEmployeeField.setText(employeeSelected.getName().get());
@@ -166,8 +170,9 @@ public class EmployeeAdminViewController {
 			Employee employee = new Employee(employeeSelected.getId().get(), nameEmployeeField.getText(),
 					lastNameEmployeeField.getText(), emailField.getText(), addressField.getText(), job.getCode());
 			admin.updateEmployee(employee);
-			MainController.showAlert("Se ha modificado el empleado: " + employeeSelected.getId(), "ADVERTENCIA",
+			MainController.showAlert("Se ha modificado el empleado: " + employeeSelected.getId().get(), "ADVERTENCIA",
 					AlertType.WARNING);
+			initTableView();
 			idEmployeeField.setText("");
 			nameEmployeeField.setText("");
 			lastNameEmployeeField.setText("");
