@@ -5,8 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
-public class ContractType{
+public class ContractType {
 
 	private int code;
 	private String description;
@@ -16,7 +15,8 @@ public class ContractType{
 
 	}
 
-	public ContractType(String description, String name) {
+	public ContractType(int code, String description, String name) {
+		this.code = code;
 		this.description = description;
 		this.name = name.toUpperCase();
 

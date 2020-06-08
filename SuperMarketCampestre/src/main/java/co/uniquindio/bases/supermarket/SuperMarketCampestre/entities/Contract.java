@@ -6,7 +6,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-
 public class Contract {
 
 	private int code;
@@ -21,7 +20,8 @@ public class Contract {
 
 	}
 
-	public Contract(int code, double salary, String startDate, String endDate, int code_type, String code_employee, int code_job) {
+	public Contract(int code, double salary, String startDate, String endDate, int code_type, String code_employee,
+			int code_job) {
 		this.code = code;
 		this.salary = salary;
 		this.startDate = startDate;
@@ -29,7 +29,7 @@ public class Contract {
 		this.code_type = code_type;
 		this.code_employee = code_employee;
 		this.code_job = code_job;
-		
+
 	}
 
 	public int getCode() {
@@ -87,7 +87,6 @@ public class Contract {
 	public void setCode_job(int code_job) {
 		this.code_job = code_job;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -100,7 +99,7 @@ public class Contract {
 		try {
 			PreparedStatement statement = connection.prepareStatement(
 					"INSERT INTO Contrato(sueldo, fechaInicio, fechaFin, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?,?)");
-		
+
 			Date startDateAux = Date.valueOf(startDate);
 			Date endDateAux = Date.valueOf(endDate);
 			statement.setDouble(1, salary);
@@ -109,6 +108,28 @@ public class Contract {
 			statement.setInt(4, code_type);
 			statement.setString(5, code_employee);
 			statement.setInt(6, code_job);
+
+			statement.executeUpdate();
+			System.out.println("Se ha guardado el contrato: " + salary + " " + startDate + " " + endDate + " "
+					+ code_type + " " + code_employee + " " + code_job);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void saveContract(double salary, String startDate, int code_type, String code_employee, int code_job,
+			Connection connection) {
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT INTO Contrato(sueldo, fechaInicio, code_tipo, cedula_empleado, code_cargo) VALUES(?,?,?,?,?)");
+
+			Date startDateAux = Date.valueOf(startDate);
+			statement.setDouble(1, salary);
+			statement.setDate(2, startDateAux);
+			statement.setInt(3, code_type);
+			statement.setString(4, code_employee);
+			statement.setInt(5, code_job);
 
 			statement.executeUpdate();
 			System.out.println("Se ha guardado el contrato: " + salary + " " + startDate + " " + endDate + " "

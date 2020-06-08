@@ -62,6 +62,21 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		}
 	}
 
+	public boolean isContractRepeated(String startDate, String code_employee, int code_job) {
+		try {
+			final String SQL = "SELECT * FROM Contrato WHERE fechaInicio = ? AND cedula_empleado = ? AND code_cargo = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setDate(1, Date.valueOf(startDate));
+			query.setString(2, code_employee);
+			query.setInt(3, code_job);
+			ResultSet resultSet = query.executeQuery();
+			return resultSet.first();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			return false;
+		}
+	}
+
 	/**
 	 * This method allows to verify if name of a {@link ContractType} exist
 	 * 
@@ -956,6 +971,114 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			System.out.println("Filas afectadas: " + rows);
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+	}
+
+	@Override
+	public List<ContractType> getAllContractTypes() {
+		List<ContractType> contractTypes = new ArrayList<ContractType>();
+		try {
+			final String SQL = "SELECT * FROM TipoContrato;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next())
+				contractTypes
+						.add(new ContractType(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
+			return contractTypes;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return contractTypes;
+	}
+
+	@Override
+	public Contract getContract(String startDate, String endDate, String code_employee, int code_job)
+			throws NonexistentEntityException {
+		if (!isContractRepeated(startDate, endDate, code_employee, code_job))
+			throw new NonexistentEntityException("El contrato se encuentra repetido");
+		Contract contract = null;
+		try {
+			final String SQL = "SELECT * FROM Contrato WHERE fechaInicio = ? AND fechaFin = ? AND cedula_empleado = ? AND code_cargo = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setDate(1, Date.valueOf(startDate));
+			query.setDate(2, Date.valueOf(endDate));
+			query.setString(3, code_employee);
+			query.setInt(4, code_job);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next())
+				contract = new Contract(resultSet.getInt(1), resultSet.getDouble(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6), resultSet.getInt(7));
+			return contract;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return contract;
+	}
+
+	public Contract getContract2(String startDate, String code_employee, int code_job)
+			throws NonexistentEntityException {
+		if (!isContractRepeated(startDate, code_employee, code_job))
+			throw new NonexistentEntityException("El contrato se encuentra repetido");
+		Contract contract = null;
+		try {
+			final String SQL = "SELECT * FROM Contrato WHERE fechaInicio = ? AND cedula_empleado = ? AND code_cargo = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setDate(1, Date.valueOf(startDate));
+			query.setString(2, code_employee);
+			query.setInt(3, code_job);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next())
+				contract = new Contract(resultSet.getInt(1), resultSet.getDouble(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getInt(5), resultSet.getString(6), resultSet.getInt(7));
+			return contract;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return contract;
+	}
+
+	@Override
+	public void addContract2(double salary, String startDate, int code_type, String code_employee, int code_job)
+			throws EntityRepeatedException {
+		Contract newContract = new Contract();
+		if (isContractRepeated(startDate, code_employee, code_job))
+			throw new EntityRepeatedException("El contrato: " + startDate + ", " + code_employee + ", " + code_job
+					+ ", ya se encuentra registrado");
+		newContract.saveContract(salary, startDate, code_type, code_employee, code_job, connection);
+
+	}
+
+	@Override
+	public void updateContract(Contract contract) {
+		if (contract.getEndDate() == null) {
+			try {
+				final String SQL = "UPDATE Contrato SET  sueldo = " + contract.getSalary()
+						+ ", fechaInicio = ? , code_tipo= " + contract.getCode_type() + ", cedula_empleado = '"
+						+ contract.getCode_employee() + "', code_cargo = '" + contract.getCode_job()
+						+ "'WHERE code = ?;";
+				PreparedStatement query = connection.prepareStatement(SQL);
+				query.setDate(1, Date.valueOf(contract.getStartDate()));
+				query.setInt(2, contract.getCode());
+				int rows = query.executeUpdate();
+				System.out.println("Filas afectadas: " + rows);
+			} catch (SQLException e) {
+				System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			}
+		} else {
+			try {
+				final String SQL = "UPDATE Contrato SET  sueldo = " + contract.getSalary()
+						+ ", fechaInicio = ?, fechaFin = ? , code_tipo= " + contract.getCode_type()
+						+ ", cedula_empleado = '" + contract.getCode_employee() + "', code_cargo = "
+						+ contract.getCode_job() + " WHERE code = ?;";
+				PreparedStatement query = connection.prepareStatement(SQL);
+				query.setDate(1, Date.valueOf(contract.getStartDate()));
+				query.setDate(2, Date.valueOf(contract.getEndDate()));
+				query.setInt(3, contract.getCode());
+				int rows = query.executeUpdate();
+				System.out.println("Filas afectadas: " + rows);
+			} catch (SQLException e) {
+				System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+			}
 		}
 	}
 }

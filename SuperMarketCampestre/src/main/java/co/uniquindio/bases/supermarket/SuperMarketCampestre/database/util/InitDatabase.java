@@ -2,7 +2,6 @@ package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
 import java.sql.Connection;
 
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -24,7 +23,7 @@ public class InitDatabase {
 	static final String PASSWORD = "root";
 	private static Connection connection;
 	private static AdministratorDelegate a;
-	
+
 	public static void main(String[] args) {
 		createDatabase();
 		createAllTables();
@@ -116,30 +115,74 @@ public class InitDatabase {
 			e.printStackTrace();
 		}
 	}
+
 	/**
 	 * This method allows to create all the needed tables
 	 */
 	public static void createAllTables() {
 
-		createTable("CREATE TABLE Cliente(code int NOT NULL AUTO_INCREMENT,  nombre VARCHAR(80), apellido VARCHAR(80), PRIMARY KEY (code));");
-		createTable("CREATE TABLE Servicio(code int NOT NULL AUTO_INCREMENT, detalle VARCHAR(255), nombre VARCHAR(255), PRIMARY KEY (code));");
-		createTable("CREATE TABLE Cliente_servicio(code int NOT NULL AUTO_INCREMENT,cliente_code int NOT NULL, servicio_code int NOT NULL, PRIMARY KEY(code, cliente_code, servicio_code),CONSTRAINT fk_service FOREIGN KEY(servicio_code) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cliente FOREIGN KEY(cliente_code)  REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE);");//Al momento de cambiar un atributo en llave foranea de la tabla a la cual pertenece, se cambia en todas las referencias en las que esté
-		createTable("CREATE TABLE Factura_servicio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255), fecha DATE, descripcion VARCHAR(255), cantidad int, totalPago DECIMAL, devuelta DECIMAL, code_servicio int NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_service_Factura FOREIGN KEY(code_servicio) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Cargo(code int NOT NULL AUTO_INCREMENT, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(code))");
-		createTable("CREATE TABLE Empleado(cedula VARCHAR(10) NOT NULL, nombre VARCHAR(255) NOT NULL, apellido VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE, direccion VARCHAR(255) NOT NULL, code_cargo int NOT NULL,PRIMARY KEY(cedula), CONSTRAINT fk_cargo_actual FOREIGN KEY(code_cargo) REFERENCES Cargo(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Telefono(numero BIGINT NOT NULL, empleado_cedula VARCHAR(10) NOT NULL, PRIMARY KEY(numero, empleado_cedula), CONSTRAINT fk_employee FOREIGN KEY(empleado_cedula) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Cliente(code int NOT NULL AUTO_INCREMENT,  nombre VARCHAR(80), apellido VARCHAR(80), PRIMARY KEY (code));");
+		createTable(
+				"CREATE TABLE Servicio(code int NOT NULL AUTO_INCREMENT, detalle VARCHAR(255), nombre VARCHAR(255), PRIMARY KEY (code));");
+		createTable(
+				"CREATE TABLE Cliente_servicio(code int NOT NULL AUTO_INCREMENT,cliente_code int NOT NULL, servicio_code int NOT NULL, PRIMARY KEY(code, cliente_code, servicio_code),CONSTRAINT fk_service FOREIGN KEY(servicio_code) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cliente FOREIGN KEY(cliente_code)  REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE);");// Al
+																																																																																																						// momento
+																																																																																																						// de
+																																																																																																						// cambiar
+																																																																																																						// un
+																																																																																																						// atributo
+																																																																																																						// en
+																																																																																																						// llave
+																																																																																																						// foranea
+																																																																																																						// de
+																																																																																																						// la
+																																																																																																						// tabla
+																																																																																																						// a
+																																																																																																						// la
+																																																																																																						// cual
+																																																																																																						// pertenece,
+																																																																																																						// se
+																																																																																																						// cambia
+																																																																																																						// en
+																																																																																																						// todas
+																																																																																																						// las
+																																																																																																						// referencias
+																																																																																																						// en
+																																																																																																						// las
+																																																																																																						// que
+																																																																																																						// esté
+		createTable(
+				"CREATE TABLE Factura_servicio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255), fecha DATE, descripcion VARCHAR(255), cantidad int, totalPago DECIMAL, devuelta DECIMAL, code_servicio int NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_service_Factura FOREIGN KEY(code_servicio) REFERENCES Servicio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Cargo(code int NOT NULL AUTO_INCREMENT, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(code))");
+		createTable(
+				"CREATE TABLE Empleado(cedula VARCHAR(10) NOT NULL, nombre VARCHAR(255) NOT NULL, apellido VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL UNIQUE, direccion VARCHAR(255) NOT NULL, code_cargo int NOT NULL,PRIMARY KEY(cedula), CONSTRAINT fk_cargo_actual FOREIGN KEY(code_cargo) REFERENCES Cargo(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Telefono(numero BIGINT NOT NULL, empleado_cedula VARCHAR(10) NOT NULL, PRIMARY KEY(numero, empleado_cedula), CONSTRAINT fk_employee FOREIGN KEY(empleado_cedula) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE);");
 		createTable("CREATE TABLE Inventario(code int NOT NULL AUTO_INCREMENT, fecha DATE, PRIMARY KEY(code));");
-		createTable("CREATE TABLE Empleado_inventario(empleado_cedula VARCHAR(10) NOT NULL, inventario_code int NOT NULL, PRIMARY KEY(empleado_cedula, inventario_code), CONSTRAINT fk_ei FOREIGN KEY(empleado_cedula) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_ii FOREIGN KEY(inventario_code) REFERENCES Inventario(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Proveedor(code int NOT NULL AUTO_INCREMENT, email VARCHAR(255) NOT NULL UNIQUE, nombre VARCHAR(255) NOT NULL, direccion VARCHAR(255) NOT NULL, telefono VARCHAR(40) NOT NULL, PRIMARY KEY(code) );");
-		createTable("CREATE TABLE Producto(code int NOT NULL AUTO_INCREMENT, cantidad int NOT NULL, nombre VARCHAR(40) NOT NULL, detalle VARCHAR(255) NOT NULL, precio DECIMAL NOT NULL, PRIMARY KEY(code) );");
-		createTable("CREATE TABLE Producto_proveedor(code int NOT NULL AUTO_INCREMENT,code_proveedor int NOT NULL, code_producto int NOT NULL,  PRIMARY KEY(code,code_producto, code_proveedor), CONSTRAINT fk_producto FOREIGN KEY(code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_proveedor FOREIGN KEY(code_proveedor) REFERENCES Proveedor(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Producto_inventario(code int NOT NULL AUTO_INCREMENT, code_producto int NOT NULL, code_inventario int NOT NULL, cantidad int NOT NULL, PRIMARY KEY(code,code_producto, code_inventario),CONSTRAINT fk_pi_inventario FOREIGN KEY (code_inventario) REFERENCES Inventario(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_pi_producto FOREIGN KEY (code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE TipoContrato(code int NOT NULL AUTO_INCREMENT, descripcion VARCHAR(255) NOT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(code));");
-		createTable("CREATE TABLE Contrato(code int NOT NULL AUTO_INCREMENT, sueldo DECIMAL, fechaInicio DATE, fechaFin DATE, code_tipo int NOT NULL, cedula_empleado VARCHAR(10) NOT NULL, code_cargo int NOT NULL,PRIMARY KEY(code, cedula_empleado), CONSTRAINT fk_empleado FOREIGN KEY(cedula_empleado) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_tipo FOREIGN KEY(code_tipo) REFERENCES TipoContrato(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cargo FOREIGN KEY(code_cargo) REFERENCES Cargo(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE TipoPago(code int NOT NULL AUTO_INCREMENT, nombre VARCHAR(10) NOT NULL, descripcion VARCHAR(255) NOT NULL, PRIMARY KEY(code));");
-		createTable("CREATE TABLE Domicilio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255) NOT NULL, cedula_empleado VARCHAR(10) NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_domiciliario FOREIGN KEY(cedula_empleado) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Venta(code int NOT NULL AUTO_INCREMENT, costo_total DECIMAL NOT NULL, code_cliente int NOT NULL, code_domicilio int, PRIMARY KEY(code), CONSTRAINT fk_cliente_code FOREIGN KEY(code_cliente) REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE,CONSTRAINT fk_domicilio FOREIGN KEY(code_domicilio) REFERENCES Domicilio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
-		createTable("CREATE TABLE Producto_venta(code_producto int NOT NULL, code_venta int NOT NULL, PRIMARY KEY(code_venta, code_producto), CONSTRAINT fk_code_producto FOREIGN KEY(code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_code_venta FOREIGN KEY(code_venta) REFERENCES Venta(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Empleado_inventario(empleado_cedula VARCHAR(10) NOT NULL, inventario_code int NOT NULL, PRIMARY KEY(empleado_cedula, inventario_code), CONSTRAINT fk_ei FOREIGN KEY(empleado_cedula) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_ii FOREIGN KEY(inventario_code) REFERENCES Inventario(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Proveedor(code int NOT NULL AUTO_INCREMENT, email VARCHAR(255) NOT NULL UNIQUE, nombre VARCHAR(255) NOT NULL, direccion VARCHAR(255) NOT NULL, telefono VARCHAR(40) NOT NULL, PRIMARY KEY(code) );");
+		createTable(
+				"CREATE TABLE Producto(code int NOT NULL AUTO_INCREMENT, cantidad int NOT NULL, nombre VARCHAR(40) NOT NULL, detalle VARCHAR(255) NOT NULL, precio DECIMAL NOT NULL, PRIMARY KEY(code) );");
+		createTable(
+				"CREATE TABLE Producto_proveedor(code int NOT NULL AUTO_INCREMENT,code_proveedor int NOT NULL, code_producto int NOT NULL,  PRIMARY KEY(code,code_producto, code_proveedor), CONSTRAINT fk_producto FOREIGN KEY(code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_proveedor FOREIGN KEY(code_proveedor) REFERENCES Proveedor(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Producto_inventario(code int NOT NULL AUTO_INCREMENT, code_producto int NOT NULL, code_inventario int NOT NULL, cantidad int NOT NULL, PRIMARY KEY(code,code_producto, code_inventario),CONSTRAINT fk_pi_inventario FOREIGN KEY (code_inventario) REFERENCES Inventario(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_pi_producto FOREIGN KEY (code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE TipoContrato(code int NOT NULL AUTO_INCREMENT, descripcion VARCHAR(255) NOT NULL, nombre VARCHAR(255) NOT NULL, PRIMARY KEY(code));");
+		createTable(
+				"CREATE TABLE Contrato(code int NOT NULL AUTO_INCREMENT, sueldo DECIMAL, fechaInicio DATE, fechaFin DATE, code_tipo int NOT NULL, cedula_empleado VARCHAR(10) NOT NULL, code_cargo int NOT NULL,PRIMARY KEY(code, cedula_empleado), CONSTRAINT fk_empleado FOREIGN KEY(cedula_empleado) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_tipo FOREIGN KEY(code_tipo) REFERENCES TipoContrato(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_cargo FOREIGN KEY(code_cargo) REFERENCES Cargo(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE TipoPago(code int NOT NULL AUTO_INCREMENT, nombre VARCHAR(10) NOT NULL, descripcion VARCHAR(255) NOT NULL, PRIMARY KEY(code));");
+		createTable(
+				"CREATE TABLE Domicilio(code int NOT NULL AUTO_INCREMENT, direccion VARCHAR(255) NOT NULL, cedula_empleado VARCHAR(10) NOT NULL, PRIMARY KEY(code), CONSTRAINT fk_domiciliario FOREIGN KEY(cedula_empleado) REFERENCES Empleado(cedula) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Venta(code int NOT NULL AUTO_INCREMENT, costo_total DECIMAL NOT NULL, code_cliente int NOT NULL, code_domicilio int, PRIMARY KEY(code), CONSTRAINT fk_cliente_code FOREIGN KEY(code_cliente) REFERENCES Cliente(code) ON UPDATE CASCADE ON DELETE CASCADE,CONSTRAINT fk_domicilio FOREIGN KEY(code_domicilio) REFERENCES Domicilio(code) ON UPDATE CASCADE ON DELETE CASCADE);");
+		createTable(
+				"CREATE TABLE Producto_venta(code_producto int NOT NULL, code_venta int NOT NULL, PRIMARY KEY(code_venta, code_producto), CONSTRAINT fk_code_producto FOREIGN KEY(code_producto) REFERENCES Producto(code) ON UPDATE CASCADE ON DELETE CASCADE, CONSTRAINT fk_code_venta FOREIGN KEY(code_venta) REFERENCES Venta(code) ON UPDATE CASCADE ON DELETE CASCADE);");
 		/**
 		 * + La relación entre venta y pago es de 1 a N (un medio de pago puede estar en
 		 * varias ventas) ?????
@@ -160,45 +203,45 @@ public class InitDatabase {
 		 * varios empleados + La tabla Domicilio es como la ruta que sea crea (supongo),
 		 * no entiendo porque tiene el atributo dirección y teléfono?
 		 * 
-		 * +Si.... los datos del domicilio son los mismos del cliente...
-		 *  ahora si organizan rutas para los empleados podrían tener 
-		 *  una tabla similar a domicilio pero sin dirección ni telefono.
+		 * +Si.... los datos del domicilio son los mismos del cliente... ahora si
+		 * organizan rutas para los empleados podrían tener una tabla similar a
+		 * domicilio pero sin dirección ni telefono.
 		 */
 	}
-	
-	public static void addData () {
-		
+
+	public static void addData() {
+
 		for (int i = 0; i < 8; i++) {
-			a.addClient("Carlos"+i, "Martinez"+i);
-		}		
-		for (int i = 0; i < 8; i++) {
-			a.addClient("Maria"+i, "Cortez"+i);
+			a.addClient("Carlos" + i, "Martinez" + i);
 		}
 		for (int i = 0; i < 8; i++) {
-			a.addClient("Gabriel"+i, "Salazar"+i);
+			a.addClient("Maria" + i, "Cortez" + i);
 		}
-		
+		for (int i = 0; i < 8; i++) {
+			a.addClient("Gabriel" + i, "Salazar" + i);
+		}
+
 		try {
 			a.addService("Recarga", "Recarga");
 			a.addService("Pago de recibos", "Pago de recibos");
 			a.addService("Bancolombia a la mano", "Bancolombia a la mano");
-			
+
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
-		
+
 		for (int i = 1; i < 5; i++) {
 			a.addClientService(i, 1);
 		}
 		for (int i = 10; i < 15; i++) {
 			a.addClientService(i, 2);
 		}
-		
+
 		for (int i = 1; i < 5; i++) {
-			a.addInvoiceService("Por la "+i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 1);
+			a.addInvoiceService("Por la " + i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 1);
 		}
 		for (int i = 8; i < 18; i++) {
-			a.addInvoiceService("Por la "+i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 2);
+			a.addInvoiceService("Por la " + i, "2020-06-03", "Descripcion" + i, 2, 5000, 500, 2);
 		}
 		try {
 			a.addJob("Administrador");
@@ -207,7 +250,7 @@ public class InitDatabase {
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
-		
+
 		try {
 			a.addEmployee("e1", "Carlos", "Martin", "cm@gmail.com", "Casa a", 1);
 			a.addEmployee("e2", "Andres", "Castrillon", "ac@hotmail.com", "Casa b", 2);
@@ -222,16 +265,22 @@ public class InitDatabase {
 		} catch (EntityRepeatedException e) {
 			e.printStackTrace();
 		}
-		
+
 		for (int i = 1; i < 10; i++) {
 			try {
-				a.addPhoneNumber(7375580+i, "e"+i);
+				a.addPhoneNumber(7375580 + i, "e" + i);
 			} catch (EntityRepeatedException e) {
 				e.printStackTrace();
 			}
 		}
-
+		try {
+			a.addContractType("Con fecha de terminación no definida", "Indefinido");
+			a.addContractType("Con fecha de terminación definida", "Definido");
+		} catch (EntityRepeatedException e) {
+			e.printStackTrace();
+		}
 	}
+
 	public static void addProducts() {
 		try {
 			a.addProduct(20, "Leche Descremada", "Leche descremada de colanta", 3600);
@@ -251,6 +300,7 @@ public class InitDatabase {
 			e.printStackTrace();
 		}
 	}
+
 	public static void addProviders() {
 		try {
 			a.addProvider("colanta@hotmail.com", "Colanta", "Fabrica industrial de Medellín", "764594");
