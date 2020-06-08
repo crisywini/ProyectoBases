@@ -1,6 +1,5 @@
 package co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util;
 
-
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -623,7 +622,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				clientList.add(new Client(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
+				clientList.add(new Client(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -655,7 +654,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
+				orderList.add(new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -671,7 +670,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			PreparedStatement query = connection.prepareStatement(SQL);
 			ResultSet resultSet = query.executeQuery();
 			while (resultSet.next()) {
-				orderList.add(new Order(resultSet.getInt(1),resultSet.getString(2), resultSet.getString(3)));
+				orderList.add(new Order(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3)));
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
@@ -836,9 +835,7 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 		}
 		return paymentTypes;
 	}
-	
-	
-	
+
 //	ESTE ES EL QUE FALLA
 
 	@Override
@@ -876,9 +873,9 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 
 	@Override
 	public Product getProduct(String name, String details) throws NonexistentEntityException {
-		
-		if(!isProductRepeated(name, details))
-			throw new NonexistentEntityException("El producto: "+name+" no se encuentra registrado");
+
+		if (!isProductRepeated(name, details))
+			throw new NonexistentEntityException("El producto: " + name + " no se encuentra registrado");
 		Product product = null;
 		try {
 			final String SQL = "SELECT * FROM Producto WHERE nombre = ? AND detalle = ?;";
@@ -886,13 +883,49 @@ public class AdministratorDelegate extends Conexion implements AdministratorDele
 			query.setString(1, name);
 			query.setString(2, details);
 			ResultSet resultSet = query.executeQuery();
-			while(resultSet.next())
-				product = new Product(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3), resultSet.getString(4), resultSet.getDouble(5));
+			while (resultSet.next())
+				product = new Product(resultSet.getInt(1), resultSet.getInt(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getDouble(5));
 			return product;
 		} catch (SQLException e) {
 			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
 		}
 		return product;
 	}
-	
+
+	@Override
+	public Provider getProvider(String email) throws NonexistentEntityException {
+		if (!isProviderRepeated(email))
+			throw new NonexistentEntityException("El proveedor: " + email + " no se encuentra registrado");
+		Provider provider = null;
+		try {
+			final String SQL = "SELECT * FROM Proveedor WHERE email = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setString(1, email);
+			ResultSet resultSet = query.executeQuery();
+			while (resultSet.next())
+				provider = new Provider(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3),
+						resultSet.getString(4), resultSet.getString(5));
+			return provider;
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}
+		return provider;
+	}
+
+	@Override
+	public void updatePrivider(Provider provider) {
+		try {
+			final String SQL = "UPDATE Proveedor SET email = " + provider.getEmail() + ", nombre = '"
+					+ provider.getName() + "', direccion = '" + provider.getAddress()+ "', telefono = " + provider.getPhone()
+					+ " WHERE code = ?;";
+			PreparedStatement query = connection.prepareStatement(SQL);
+			query.setInt(1, provider.getCode());
+			int rows = query.executeUpdate();
+			System.out.println("Filas afectadas: " + rows);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage() + "<------(FROM DELEGATE)");
+		}		
+	}
+
 }

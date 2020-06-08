@@ -70,7 +70,7 @@ public interface AdministratorDelegateRemote {
 	Order getOrder(String address, String code) throws NonexistentEntityException;
 	Client getClient(String name, String lastName) throws NonexistentEntityException;
 	Product getProduct(String name, String details) throws NonexistentEntityException;
-
+	Provider getProvider(String email) throws NonexistentEntityException;
 
 	List<Contract> getAllContracts();
 	List<Employee> getAllEmployees();
@@ -80,7 +80,7 @@ public interface AdministratorDelegateRemote {
 	List<PaymentType> getAllPaymentType();
 	
 	void updateProduct(Product product);
-	
+	void updatePrivider(Provider provider);
 	
 	List<Product> getProductsWithTheHighestPrice();
 	List<Provider> getProvidersGmail();

@@ -8,6 +8,7 @@ import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.exceptions.NonexistentEntityException;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.database.util.AdministratorDelegate;
 import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Product;
+import co.uniquindio.bases.supermarket.SuperMarketCampestre.entities.Provider;
 
 /**
  * Unit test for simple App.
@@ -187,6 +188,11 @@ public class AppTest {
 	@Test
 	public void getContractListTest() {
 		admin.getProvidersGmail();
+	}
+	@Test
+	public void updateProvider() {
+//		Provider provider = new Provider(1, "Colanta@gmail.com", "Colanta", "", phone)
+		admin.updatePrivider(new Provider());
 	}
 
 //	-----------------------
