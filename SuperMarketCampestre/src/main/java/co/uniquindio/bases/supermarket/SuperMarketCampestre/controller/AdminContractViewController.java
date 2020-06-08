@@ -159,14 +159,16 @@ public class AdminContractViewController {
 		if (comboContractType.getSelectionModel().isEmpty())
 			errorMessage += "Debes seleccionar un término\n";
 		else {
-			if (comboContractType.getSelectionModel().getSelectedItem().getName().equalsIgnoreCase("indefinido")) {
+			if (comboContractType.getSelectionModel().getSelectedItem().getCode() == 1) {
 				if (startDate.getValue() == null)
-					errorMessage += "Los contratos a término indefinido deben tener una fecha de inicio\n";
+					errorMessage += "Los contratos a término indefinido \ndeben tener una fecha de inicio\n";
 
-			} else if (startDate.getValue() == null)
-				errorMessage += "Los contratos a término definido deben tener una fecha de inicio\n";
-			if (endDate.getValue() == null)
-				errorMessage += "Los contratos a término definido deben tener una fecha de fin\n";
+			} else {
+				if (startDate.getValue() == null)
+					errorMessage += "Los contratos a término definido \ndeben tener una fecha de inicio\n";
+				if (endDate.getValue() == null)
+					errorMessage += "Los contratos a término definido \ndeben tener una fecha de fin\n";
+			}
 		}
 		if (idEmployeeField.getText().isEmpty())
 			errorMessage += "Debes ingresar la cédula del empleado\n";
@@ -202,7 +204,7 @@ public class AdminContractViewController {
 		if (!tableView.getSelectionModel().isEmpty()) {
 			contractSelected = tableView.getSelectionModel().getSelectedItem();
 			idEmployeeField.setText(contractSelected.getIdEmployee().get());
-			salaryField.setText(contractSelected.getIdEmployee().get());
+			salaryField.setText(contractSelected.getSalary().get());
 			MainController.showAlert("Se ha seleccionado correctamente el contrato", "", AlertType.INFORMATION);
 		} else
 			MainController.showAlert("Debes seleccionar algún contrato", "ADVERTENCIA", AlertType.INFORMATION);
